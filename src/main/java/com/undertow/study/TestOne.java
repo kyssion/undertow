@@ -13,7 +13,7 @@ public class TestOne {
                     public void handleRequest(final HttpServerExchange exchange) throws Exception {
                         exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "text/plain");
                         exchange.getResponseSender().send("Hello World");
-                        exchange.dispatch();
+                        exchange.startBlocking();
                     }
                 }).build();
         server.start();
