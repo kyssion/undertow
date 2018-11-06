@@ -1,5 +1,6 @@
 package com.undertow.study;
 
+import com.magic.sso.MessageServlet;
 import io.undertow.Handlers;
 import io.undertow.Undertow;
 import io.undertow.server.HttpHandler;
@@ -15,7 +16,7 @@ public class WildFlyServer {
     public static void main(final String[] args) throws Exception {
 
         // 创建ServletInfo，名字"MyServlet"必须唯一
-        ServletInfo servlet1 = Servlets.servlet("MyServlet", MyServlet.class);
+        ServletInfo servlet1 = Servlets.servlet("MyServlet", MessageServlet.class);
         // 设置Servlet的init方法执行时需要的数据
         servlet1.addInitParam("message", "Hello World");
         // 绑定映射为/hello
