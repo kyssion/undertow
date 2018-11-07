@@ -9,12 +9,10 @@ public class TestOne {
     public static void main(String[] args) {
         Undertow server = Undertow.builder()
                 .addHttpListener(8080, "localhost")
-                .setHandler(new HttpHandler() {
-                    public void handleRequest(final HttpServerExchange exchange) throws Exception {
-                        exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "text/plain");
-                        exchange.getResponseSender().send("Hello World");
-                        exchange.startBlocking();
-                    }
+                .setHandler((exchange) -> {
+                    exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "text/plain");
+                    exchange.getResponseSender().send("Hello World");
+                    exchange.startBlocking();
                 }).build();
         server.start();
     }
