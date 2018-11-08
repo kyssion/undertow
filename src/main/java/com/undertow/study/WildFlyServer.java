@@ -60,7 +60,6 @@ public class WildFlyServer {
         // 生成路径处理器，返回"/*"自动重定向到"/myapp"的处理器
 //        PathHandler path = Handlers.path(Handlers.redirect("/myapp"));
 
-        Handlers.path();
         // 启动容器，生成请求处理器
         HttpHandler myapp = manager.start();
         HttpHandler myapp2 = manager2.start();
