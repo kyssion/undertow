@@ -3,6 +3,8 @@ package com.undertowXnio;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
 
 import org.xnio.ChannelListener;
 import org.xnio.IoUtils;
@@ -23,12 +25,16 @@ public final class SimpleEchoServer {
                     public void handleEvent(ConnectedStreamChannel channel) {
                         //分配缓冲
                         final ByteBuffer buffer = ByteBuffer.allocate(512);
+                        final Charset charset = Charset.forName("utf-8");
                         int res;
                         try {
                             while ((res = channel.read(buffer)) > 0) {
                                 //切换到写的状态并用阻塞的方式写回
                                 buffer.flip();
-                                Channels.writeBlocking(channel, buffer);
+                                final CharBuffer chars = charset.decode(buffer);
+                                System.out.print(chars);
+                                buffer.put("123".getBytes());
+                                Channels.writeBlocking(channel,buffer);
                             }
                             // 保证全部送出
                             Channels.flushBlocking(channel);
