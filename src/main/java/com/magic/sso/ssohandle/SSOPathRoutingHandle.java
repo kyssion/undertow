@@ -2,6 +2,7 @@ package com.magic.sso.ssohandle;
 
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
+import io.undertow.util.Methods;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,6 +40,11 @@ public class SSOPathRoutingHandle implements HttpHandler {
 
     @Override
     public void handleRequest(HttpServerExchange exchange) throws Exception {
+        logger.info("请求传入参数:{}",exchange.getRequestURL());
+        SSoHttpHandle httpHandle = handleMap.get(exchange.getRequestURL());
 
+        if(httpHandle.getMethod().equals(exchange.getRequestMethod())){
+            exchange.dispatch(httpHandle);
+        }
     }
 }
