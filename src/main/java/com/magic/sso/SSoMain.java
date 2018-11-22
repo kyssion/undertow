@@ -9,6 +9,8 @@ public class SSoMain {
     public static void main(String[] args) throws Exception {
 
         DemoSSoHandle demoSSoHandle = new DemoSSoHandle("test", Methods.GET);
+
+
         SSOPathRoutingHandle handle = new SSOPathRoutingHandle();
         handle.addSSoHttpHandle(demoSSoHandle);
         Undertow server = Undertow.builder()

@@ -22,6 +22,7 @@ public class SSOPathRoutingHandle implements HttpHandler {
     public SSOPathRoutingHandle(String rootPath){
         super();
         this.rootPath=rootPath;
+
     }
 
     public boolean addSSoHttpHandle(SSoHttpHandle httpHandle) {

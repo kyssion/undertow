@@ -5,7 +5,6 @@ import io.undertow.util.HttpString;
 import io.undertow.util.Methods;
 
 public abstract class SSoHttpHandle implements HttpHandler {
-
     private String path="";
 
     //defind url method
