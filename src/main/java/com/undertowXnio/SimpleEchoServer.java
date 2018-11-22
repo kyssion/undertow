@@ -33,7 +33,7 @@ public final class SimpleEchoServer {
                                 buffer.flip();
                                 final CharBuffer chars = charset.decode(buffer);
                                 System.out.print(chars);
-                                buffer.put("123".getBytes());
+                                buffer.flip();
                                 Channels.writeBlocking(channel,buffer);
                             }
                             // 保证全部送出
