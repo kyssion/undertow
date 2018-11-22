@@ -20,46 +20,52 @@ public final class SimpleEchoServer {
     public static void main(String[] args) throws Exception {
 
         // 定义读数据listener
-        final ChannelListener<ConnectedStreamChannel> readListener = channel -> {
-                    //分配缓冲
-                    final ByteBuffer buffer = ByteBuffer.allocate(512);
-                    final Charset charset = Charset.forName("utf-8");
-                    int res;
-                    try {
-                        while ((res = channel.read(buffer)) > 0) {
-                            //切换到写的状态并用阻塞的方式写回
-                            buffer.flip();
-                            final CharBuffer chars = charset.decode(buffer);
-                            System.out.print(chars);
-                            buffer.put("123".getBytes());
-                            Channels.writeBlocking(channel,buffer);
+        final ChannelListener<ConnectedStreamChannel> readListener =
+                new ChannelListener<ConnectedStreamChannel>() {
+                    public void handleEvent(ConnectedStreamChannel channel) {
+                        //分配缓冲
+                        final ByteBuffer buffer = ByteBuffer.allocate(512);
+                        final Charset charset = Charset.forName("utf-8");
+                        int res;
+                        try {
+                            while ((res = channel.read(buffer)) > 0) {
+                                //切换到写的状态并用阻塞的方式写回
+                                buffer.flip();
+                                final CharBuffer chars = charset.decode(buffer);
+                                System.out.print(chars);
+                                buffer.put("123".getBytes());
+                                Channels.writeBlocking(channel,buffer);
+                            }
+                            // 保证全部送出
+                            Channels.flushBlocking(channel);
+                            if (res == -1) {
+                                channel.close();
+                            } else {
+                                channel.resumeReads();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            IoUtils.safeClose(channel);
                         }
-                        // 保证全部送出
-                        Channels.flushBlocking(channel);
-                        if (res == -1) {
-                            channel.close();
-                        } else {
-                            channel.resumeReads();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        IoUtils.safeClose(channel);
                     }
                 };
         // 创建接收 listener.
         final ChannelListener<AcceptingChannel<ConnectedStreamChannel>> acceptListener =
-                channel -> {
-                    try {
-                        ConnectedStreamChannel accepted;
-                        // channel就绪，准备接收连接请求
-                        while ((accepted = channel.accept()) != null) {
-                            System.out.println("accepted " + accepted.getPeerAddress());
-                            // 已经连接，设置读数据listener
-                            accepted.getReadSetter().set(readListener);
-                            // 恢复读的状态
-                            accepted.resumeReads();
+                new ChannelListener<AcceptingChannel<ConnectedStreamChannel>>() {
+                    public void handleEvent(
+                            final AcceptingChannel<ConnectedStreamChannel> channel) {
+                        try {
+                            ConnectedStreamChannel accepted;
+                            // channel就绪，准备接收连接请求
+                            while ((accepted = channel.accept()) != null) {
+                                System.out.println("accepted " + accepted.getPeerAddress());
+                                // 已经连接，设置读数据listener
+                                accepted.getReadSetter().set(readListener);
+                                // 恢复读的状态
+                                accepted.resumeReads();
+                            }
+                        } catch (IOException ignored) {
                         }
-                    } catch (IOException ignored) {
                     }
                 };
 
