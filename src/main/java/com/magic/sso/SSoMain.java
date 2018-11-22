@@ -8,7 +8,7 @@ import io.undertow.util.Methods;
 public class SSoMain {
     public static void main(String[] args) throws Exception {
 
-        DemoSSoHandle demoSSoHandle = new DemoSSoHandle("test", Methods.GET);
+        DemoSSoHandle demoSSoHandle = new DemoSSoHandle("/test", Methods.GET);
 
 
         SSOPathRoutingHandle handle = new SSOPathRoutingHandle();

@@ -1,6 +1,6 @@
 package com.magic.sso.ssohandle;
 
-import io.undertow.server.handlers.resource.ResourceHandler;
+import io.undertow.server.handlers.resource.*;
 
 import java.util.concurrent.ConcurrentHashMap;
 
