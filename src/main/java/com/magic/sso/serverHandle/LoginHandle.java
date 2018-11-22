@@ -1,10 +1,11 @@
-package com.magic.sso.ssohandle;
+package com.magic.sso.serverHandle;
 
+import com.magic.sso.ssohandle.SSoHttpHandle;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HttpString;
 
-public class LoginHandle extends SSoHttpHandle{
+public class LoginHandle extends SSoHttpHandle {
 
     public LoginHandle(String path, HttpString method) throws Exception {
         super(path, method);
