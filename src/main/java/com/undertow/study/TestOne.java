@@ -5,6 +5,7 @@ import io.undertow.io.Sender;
 import io.undertow.server.DefaultResponseListener;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
+import io.undertow.server.protocol.http.HttpOpenListener;
 import io.undertow.util.Headers;
 
 import java.util.Collections;
@@ -19,6 +20,7 @@ public class TestOne {
                         exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "text/plain");
                         exchange.getResponseSender().send("Hello World");
                         exchange.startBlocking();
+                        exchange.dispatch(this);
                     }
                 }).build();
         server.start();

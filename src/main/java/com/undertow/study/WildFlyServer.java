@@ -1,6 +1,5 @@
 package com.undertow.study;
 
-import com.magic.sso.MessageServlet;
 import io.undertow.Handlers;
 import io.undertow.Undertow;
 import io.undertow.server.HttpHandler;
