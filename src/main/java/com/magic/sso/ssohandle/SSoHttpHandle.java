@@ -4,6 +4,9 @@ import io.undertow.server.HttpHandler;
 import io.undertow.util.HttpString;
 import io.undertow.util.Methods;
 
+/**
+ * 服务最底层的处理层用来进行过滤的操作
+ */
 public abstract class SSoHttpHandle implements HttpHandler {
     private String path="";
 
