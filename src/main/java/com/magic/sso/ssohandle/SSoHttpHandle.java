@@ -11,11 +11,14 @@ public abstract class SSoHttpHandle implements HttpHandler {
     //defind url method
     public HttpString method;
 
-    public SSoHttpHandle(String path,HttpString method){
+    public SSoHttpHandle(String path,HttpString method) throws Exception {
+        if(!path.startsWith("/")){
+            throw new Exception("路径匹配应该以/ 开始");
+        }
         this.path=path;
         this.method = method;
     }
-    public SSoHttpHandle(String path){
+    public SSoHttpHandle(String path) throws Exception {
         this(path,Methods.GET);
     }
 

@@ -6,11 +6,11 @@ import io.undertow.util.HttpString;
 
 public class RegisteredHandle extends SSoHttpHandle {
 
-    public RegisteredHandle(String path, HttpString method) {
+    public RegisteredHandle(String path, HttpString method) throws Exception {
         super(path, method);
     }
 
-    public RegisteredHandle(String path) {
+    public RegisteredHandle(String path) throws Exception {
         super(path);
     }
 
