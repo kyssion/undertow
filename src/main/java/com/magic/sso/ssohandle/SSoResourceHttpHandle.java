@@ -1,31 +1,27 @@
 package com.magic.sso.ssohandle;
 
+import io.undertow.io.IoCallback;
+import io.undertow.server.HttpServerExchange;
 import io.undertow.server.handlers.resource.*;
+import io.undertow.util.HttpString;
 
-import java.util.concurrent.ConcurrentHashMap;
+import java.io.IOException;
 
-public class SSoResourceHttpHandle extends SSOPathRoutingHandle{
+public abstract class SSoResourceHttpHandle extends SSoHttpHandle{
 
-    private ConcurrentHashMap<String, ResourceHandler> resourceHandler=
-            new ConcurrentHashMap<>();
+    private ResourceManager resourceManager =
+            new ClassPathResourceManager(this.getClass().getClassLoader());
 
-    public SSoResourceHttpHandle(String rootPath,ConcurrentHashMap<String, ResourceHandler> resourceHandler) {
-        super(rootPath);
-        this.resourceHandler.putAll(resourceHandler);
-    }
-    public SSoResourceHttpHandle(ConcurrentHashMap<String, ResourceHandler> resourceHandler) {
-        super();
-        this.resourceHandler = resourceHandler;
-        this.resourceHandler.putAll(resourceHandler);
+    public SSoResourceHttpHandle(String path, HttpString method) throws Exception {
+        super(path, method);
     }
 
-    public SSoResourceHttpHandle(String[] resoucePath) {
-        super();
+    public SSoResourceHttpHandle(String path) throws Exception {
+        super(path);
     }
 
-    public SSoResourceHttpHandle(String rootPath,String[] resoucePath) {
-        super(rootPath);
-
+    public void resourceHandler(HttpServerExchange exchange,String path) throws IOException {
+        Resource resource= resourceManager.getResource(path);
+        resource.serve(exchange.getResponseSender(),exchange, IoCallback.END_EXCHANGE);
     }
-
 }
