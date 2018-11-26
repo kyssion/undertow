@@ -18,4 +18,16 @@ public class RegisteredHandle extends SSoResourceHttpHandle {
     public void handleRequest(HttpServerExchange exchange) throws Exception {
 
     }
+
+    /**
+     * 注册用户信息
+     * @param exchange
+     */
+    private void Registeruser(HttpServerExchange exchange){
+
+    }
+
+    private void RegisterPage(HttpServerExchange exchange){
+
+    }
 }
