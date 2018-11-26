@@ -18,4 +18,28 @@ public class TockenHandle extends SSoHttpHandle {
     public void handleRequest(HttpServerExchange exchange) throws Exception {
 
     }
+
+    /**
+     * 添加令牌信息
+     * @param exchange
+     */
+    private void addTocken(HttpServerExchange exchange){
+
+    }
+
+    /**
+     * 判断令牌信息是否正确
+     * @param exchange
+     */
+    private void isTockenTrue(HttpServerExchange exchange){
+
+    }
+
+    /**
+     * 删除令牌信息
+     * @param exchange
+     */
+    private void deleteTocken(HttpServerExchange exchange){
+
+    }
 }
