@@ -1,4 +1,4 @@
-package com.magic.sso.ssohandle;
+package com.magic.sso.ssohandle.baseHandle;
 
 import io.undertow.server.HttpHandler;
 import io.undertow.util.HttpString;

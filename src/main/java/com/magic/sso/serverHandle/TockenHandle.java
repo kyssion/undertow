@@ -1,16 +1,16 @@
 package com.magic.sso.serverHandle;
 
-import com.magic.sso.ssohandle.baseHandle.SSoResourceHttpHandle;
+import com.magic.sso.ssohandle.baseHandle.SSoHttpHandle;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HttpString;
 
-public class RegisteredHandle extends SSoResourceHttpHandle {
+public class TockenHandle extends SSoHttpHandle {
 
-    public RegisteredHandle(String path, HttpString method) throws Exception {
+    public TockenHandle(String path, HttpString method) throws Exception {
         super(path, method);
     }
 
-    public RegisteredHandle(String path) throws Exception {
+    public TockenHandle(String path) throws Exception {
         super(path);
     }
 

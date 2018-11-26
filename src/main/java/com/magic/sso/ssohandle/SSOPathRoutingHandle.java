@@ -1,5 +1,6 @@
 package com.magic.sso.ssohandle;
 
+import com.magic.sso.ssohandle.baseHandle.SSoHttpHandle;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
 import org.slf4j.Logger;
