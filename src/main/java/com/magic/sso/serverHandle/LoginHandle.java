@@ -6,6 +6,9 @@ import io.undertow.util.HttpString;
 
 public class LoginHandle extends SSoResourceHttpHandle {
 
+    private static String USERLOGIN = "userLogin";
+    private static String USERLOGOUT = "userLogOut";
+
     public LoginHandle(String path, HttpString method) throws Exception {
         super(path, method);
     }
@@ -16,7 +19,13 @@ public class LoginHandle extends SSoResourceHttpHandle {
 
     @Override
     public void handleRequest(HttpServerExchange exchange) throws Exception {
-
+        if(exchange.getRequestPath().equals(this.getPath()+USERLOGIN)){
+            this.UserLogin(exchange);
+            return;
+        }
+        if (exchange.getRequestPath().equals(this.getPath()+USERLOGOUT)){
+            this.UserLogOut(exchange);
+        }
     }
 
     /**
