@@ -7,6 +7,7 @@ import io.undertow.server.HttpServerExchange;
 import java.io.IOException;
 
 public class SSoIoCallable implements IoCallback {
+
     @Override
     public void onComplete(HttpServerExchange exchange, Sender sender) {
 
