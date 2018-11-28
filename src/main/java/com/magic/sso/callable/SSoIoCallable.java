@@ -17,4 +17,5 @@ public class SSoIoCallable implements IoCallback {
     public void onException(HttpServerExchange exchange, Sender sender, IOException exception) {
 
     }
+
 }

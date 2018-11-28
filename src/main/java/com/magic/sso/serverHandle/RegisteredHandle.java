@@ -28,7 +28,6 @@ public class RegisteredHandle extends SSoResourceHttpHandle {
             this.RegisterPage(exchange);
         }
     }
-
     /**
      * 注册用户信息
      *
