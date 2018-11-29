@@ -33,7 +33,7 @@ public class LoginHandle extends SSoResourceHttpHandle {
      * @param exchange
      */
     private void UserLogin(HttpServerExchange exchange){
-
+        exchange.getQueryParameters();
     }
 
     /**
