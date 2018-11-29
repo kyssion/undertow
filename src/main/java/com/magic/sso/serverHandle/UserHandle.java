@@ -11,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static com.magic.sso.util.DateBaseUtil.getDataSource;
 
 public class UserHandle extends SSoResourceHttpHandle {
 
