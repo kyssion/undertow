@@ -60,6 +60,7 @@ public class DateBaseUtil {
             }
             statement.addBatch();
         }
+        statement.executeBatch();
     }
 
     /**
