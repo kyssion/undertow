@@ -1,6 +1,5 @@
 package com.magic.sso.serverHandle;
 
-import com.alibaba.druid.pool.DruidPooledConnection;
 import com.magic.sso.ssohandle.baseHandle.SSoResourceHttpHandle;
 import com.magic.sso.util.DateBaseUtil;
 import io.undertow.server.HttpServerExchange;
