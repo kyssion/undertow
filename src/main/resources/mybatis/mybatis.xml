@@ -7,10 +7,10 @@
         <environment id="development">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
-                <property name="driver" value=""/>
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
                 <property name="url" value="127.0.0.1"/>
-                <property name="username" value="${username}"/>
-                <property name="password" value="${password}"/>
+                <property name="username" value="magic"/>
+                <property name="password" value="14159265jkl"/>
             </dataSource>
         </environment>
     </environments>
