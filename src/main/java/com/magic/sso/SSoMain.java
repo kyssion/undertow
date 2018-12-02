@@ -4,12 +4,15 @@ import com.magic.sso.ssohandle.DemoSSoHandle;
 import com.magic.sso.ssohandle.SSOPathRoutingHandle;
 import io.undertow.Undertow;
 import io.undertow.util.Methods;
+import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class SSoMain {
     public static void main(String[] args) throws Exception {
 
         DemoSSoHandle demoSSoHandle = new DemoSSoHandle("/test", Methods.GET);
-
 
         SSOPathRoutingHandle handle = new SSOPathRoutingHandle();
         handle.addSSoHttpHandle(demoSSoHandle);
