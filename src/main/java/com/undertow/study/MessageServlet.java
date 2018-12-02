@@ -16,7 +16,7 @@
  *  limitations under the License.
  */
 
-package com.magic.sso;
+package com.undertow.study;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;

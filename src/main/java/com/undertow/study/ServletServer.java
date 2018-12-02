@@ -16,7 +16,7 @@
  *  limitations under the License.
  */
 
-package com.magic.sso;
+package com.undertow.study;
 
 import io.undertow.Handlers;
 import io.undertow.Undertow;
