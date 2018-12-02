@@ -29,11 +29,11 @@ public class MybatisUtil {
         return factory.openSession(isAutoCommit).getMapper(tClass);
     }
 
-    public static  <T> T getMapper(SqlSessionFactory factory, Class<T> tClass){
+    public static  <T> T getMapper(SqlSessionFactory factory, Class<T> daoClass){
         if(null==factory){
             return null;
         }
-        return getMapper(factory,tClass,true);
+        return getMapper(factory,daoClass,true);
     }
 
     public static SqlSessionFactory getSessionFactory(){
