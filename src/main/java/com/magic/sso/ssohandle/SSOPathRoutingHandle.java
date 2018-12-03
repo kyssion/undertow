@@ -5,6 +5,7 @@ import com.magic.sso.ssohandle.baseHandle.SSoHttpHandle;
 import com.magic.sso.util.PathTree;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
+import io.undertow.util.Headers;
 import io.undertow.util.Methods;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -95,6 +96,7 @@ public class SSOPathRoutingHandle implements HttpHandler {
 
     @Override
     public void handleRequest(HttpServerExchange exchange) throws Exception {
+        exchange.getResponseHeaders().put(Headers.CONTENT_TYPE,"application/json;charset=UTF-8");
         logger.info("请求传入参数:{}", exchange.getRequestURL());
         System.out.println(this.rootPath + exchange.getRequestPath());
         String[] node =  (this.rootPath+exchange.getRequestPath()).split("/");
