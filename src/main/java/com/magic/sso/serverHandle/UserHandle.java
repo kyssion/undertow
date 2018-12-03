@@ -15,8 +15,8 @@ import java.util.Map;
 
 public class UserHandle extends SSoResourceHttpHandle {
 
-    private  String USERLOGIN = this.getPath()+"userLogin";
-    private  String USERLOGOUT = this.getPath()+"userLogOut";
+    private  String USERLOGIN = this.getPath()+"/userLogin";
+    private  String USERLOGOUT = this.getPath()+"/userLogOut";
 
     public UserHandle(String path, HttpString method) throws Exception {
         super(path, method);
