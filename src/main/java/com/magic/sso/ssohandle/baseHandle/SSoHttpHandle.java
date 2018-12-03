@@ -15,8 +15,8 @@ public abstract class SSoHttpHandle implements HttpHandler {
     public HttpString method;
 
     public SSoHttpHandle(String path,HttpString method) throws Exception {
-        if(!path.startsWith("/")){
-            throw new Exception("路径匹配应该以/ 开始");
+        if(path.startsWith("/")){
+            throw new Exception("路径匹配不能以/ 开始");
         }
         this.path=path;
         this.method = method;

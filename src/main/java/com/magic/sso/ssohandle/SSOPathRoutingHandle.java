@@ -5,6 +5,7 @@ import com.magic.sso.ssohandle.baseHandle.SSoHttpHandle;
 import com.magic.sso.util.PathTree;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
+import io.undertow.util.Methods;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +16,7 @@ public class SSOPathRoutingHandle implements HttpHandler {
 
     Logger logger = LoggerFactory.getLogger(SSOPathRoutingHandle.class);
 
-    private HashMap<String, PathTree> rootPathtree = new HashMap<>();
+    private PathTree rootPathtree;
 
     private String rootPath;
 
@@ -26,30 +27,45 @@ public class SSOPathRoutingHandle implements HttpHandler {
     public SSOPathRoutingHandle(String rootPath) {
         super();
         this.rootPath = rootPath;
+        rootPathInit();
     }
 
+    /**
+     * 初始化根root
+     * @throws Exception
+     */
     private void rootPathInit() {
         PathTree pathTree = new PathTree();
         pathTree.setNextPathTree(new HashMap<>());
-        pathTree.setPathEndHandle(new DefaultHandle());
+        try {
+            pathTree.setPathEndHandle(new DefaultHandle("", Methods.GET));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         pathTree.setNextPathTree(new HashMap<>());
-        this.rootPathtree.put("", pathTree);
+        pathTree.setPath("");
+        this.rootPathtree=pathTree;
     }
 
+    /**
+     * 添加相关的信息到 httphandle中
+     * @param httpHandle
+     * @return
+     */
     public boolean addSSoHttpHandle(SSoHttpHandle httpHandle) {
         try {
             String[] pathNode = httpHandle.getPath().split("/");
-            HashMap<String, PathTree> hashMap = this.rootPathtree;
+            PathTree itemPath = this.rootPathtree;
             for (String aPathNode : pathNode) {
-                if (!hashMap.containsKey(aPathNode)) {
+                if (!itemPath.getNextPathTree().containsKey(aPathNode)) {
                     PathTree pathTree = new PathTree();
                     pathTree.setPath(aPathNode);
                     pathTree.setPathEndHandle(httpHandle);
                     pathTree.setNextPathTree(new HashMap<>());
-                    hashMap.put(aPathNode, pathTree);
-                    hashMap = pathTree.getNextPathTree();
+                    itemPath.getNextPathTree().put(aPathNode, pathTree);
+                    itemPath = pathTree;
                 } else {
-                    hashMap = hashMap.get(aPathNode).getNextPathTree();
+                    itemPath = itemPath.getNextPathTree().get(aPathNode);
                 }
             }
         } catch (Exception e) {
@@ -59,15 +75,20 @@ public class SSOPathRoutingHandle implements HttpHandler {
         return true;
     }
 
-    private HttpHandler findhandle(String[] node) {
+    /**
+     * 遍历树查找指定的节点的处理器,使用最长匹配
+     * @param node
+     * @return
+     */
+    private SSoHttpHandle findhandle(String[] node) {
         return findhandle(node, 0, this.rootPathtree);
     }
 
-    private HttpHandler findhandle(String[] node, int index, HashMap<String, PathTree> nowPathhash) {
-        if (index + 1 < node.length && nowPathhash.containsKey(node[index + 1])){
-            return findhandle(node,index+1,nowPathhash.get(node[index+1]).getNextPathTree());
+    private SSoHttpHandle findhandle(String[] node, int index, PathTree nowPath) {
+        if (index + 1 < node.length && nowPath.getNextPathTree().containsKey(node[index + 1])){
+            return findhandle(node,index+1,nowPath.getNextPathTree().get(node[index+1]));
         }else{
-            return
+            return nowPath.getPathEndHandle();
         }
     }
 
@@ -76,13 +97,12 @@ public class SSOPathRoutingHandle implements HttpHandler {
     public void handleRequest(HttpServerExchange exchange) throws Exception {
         logger.info("请求传入参数:{}", exchange.getRequestURL());
         System.out.println(this.rootPath + exchange.getRequestPath());
-        SSoHttpHandle httpHandle = handleMap.get(exchange.getRequestPath());
-
+        String[] node =  (this.rootPath+exchange.getRequestPath()).split("/");
+        SSoHttpHandle httpHandle = this.findhandle(node);
         if (httpHandle == null) {
             exchange.getResponseSender().send("error");
             return;
         }
-
         if (exchange.getRequestMethod().equals(httpHandle.getMethod())) {
             exchange.dispatch(httpHandle);
         }

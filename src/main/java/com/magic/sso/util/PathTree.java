@@ -1,5 +1,6 @@
 package com.magic.sso.util;
 
+import com.magic.sso.ssohandle.baseHandle.SSoHttpHandle;
 import io.undertow.server.HttpHandler;
 
 import java.util.HashMap;
@@ -7,7 +8,7 @@ import java.util.HashMap;
 public class PathTree {
     private String path;
     private HashMap<String,PathTree> nextPathTree;
-    private HttpHandler pathEndHandle;
+    private SSoHttpHandle pathEndHandle;
 
     public String getPath() {
         return path;
@@ -25,11 +26,11 @@ public class PathTree {
         this.nextPathTree = nextPathTree;
     }
 
-    public HttpHandler getPathEndHandle() {
+    public SSoHttpHandle getPathEndHandle() {
         return pathEndHandle;
     }
 
-    public void setPathEndHandle(HttpHandler pathEndHandle) {
+    public void setPathEndHandle(SSoHttpHandle pathEndHandle) {
         this.pathEndHandle = pathEndHandle;
     }
 }
