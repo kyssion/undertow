@@ -1,6 +1,7 @@
 package com.magic.sso.util;
 
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
@@ -22,22 +23,23 @@ public class MybatisUtil {
         }
     }
 
-    public static  <T> T getMapper(SqlSessionFactory factory, Class<T> tClass,boolean isAutoCommit){
+    public static  <T> T getMapper(SqlSession sqlSession, Class<T> tClass){
         if(null==factory){
             return null;
         }
-        return factory.openSession(isAutoCommit).getMapper(tClass);
-    }
-
-    public static  <T> T getMapper(SqlSessionFactory factory, Class<T> daoClass){
-        if(null==factory){
-            return null;
-        }
-        return getMapper(factory,daoClass,true);
+        return sqlSession.getMapper(tClass);
     }
 
     public static SqlSessionFactory getSessionFactory(){
         return factory;
+    }
+
+    public static SqlSession getSqlSession(){
+        return factory.openSession();
+    }
+
+    public static SqlSession getSqlSession(boolean auto){
+        return factory.openSession(auto);
     }
 
     public static SqlSessionFactoryBuilder getSqlSessionFactoryBuilder() {

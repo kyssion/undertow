@@ -6,6 +6,7 @@ import com.magic.sso.ssohandle.baseHandle.SSoResourceHttpHandle;
 import com.magic.sso.util.MybatisUtil;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HttpString;
+import org.apache.ibatis.session.SqlSession;
 
 import java.sql.SQLException;
 import java.util.Deque;
@@ -48,10 +49,10 @@ public class UserHandle extends SSoResourceHttpHandle {
      * @throws SQLException
      */
     private void userLogin(String userId,String password) throws SQLException {
-        TestDao testDao = MybatisUtil.getMapper(MybatisUtil.getSessionFactory(),TestDao.class);
+        SqlSession sqlSession = MybatisUtil.getSqlSession();
+        TestDao testDao = MybatisUtil.getMapper(sqlSession,TestDao.class);
         User user = testDao.getUserByUserId(userId,password);
-
-
+        System.out.println(user.getEmail()+user.getId());
     }
 
     /**
