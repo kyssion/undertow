@@ -50,6 +50,16 @@ public class DateBaseUtil {
         return statement;
     }
 
+    public static ResultSet runSqlWithResult(Connection connection,String sql,SqlParams params) throws SQLException {
+        PreparedStatement statement = createPrePatedStatement(connection,sql,params);
+        return statement.executeQuery();
+    }
+
+    public static boolean runSqlNoResult(Connection connection,String sql,SqlParams params) throws SQLException {
+        PreparedStatement statement = createPrePatedStatement(connection,sql,params);
+        return statement.execute();
+    }
+
     public static void batchSQL(Connection connection, String sql, SqlParams[] params) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(sql);
         String[] para;
