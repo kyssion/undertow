@@ -1,12 +1,9 @@
 package com.magic.sso;
 
 import com.magic.sso.serverHandle.RegisteredHandle;
-import com.magic.sso.serverHandle.TestHandle;
 import com.magic.sso.serverHandle.UserHandle;
-import com.magic.sso.ssohandle.DemoSSoHandle;
 import com.magic.sso.ssohandle.SSOPathRoutingHandle;
 import io.undertow.Undertow;
-import io.undertow.util.Methods;
 
 public class SSoMain {
 

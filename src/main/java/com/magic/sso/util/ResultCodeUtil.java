@@ -19,7 +19,7 @@ public class ResultCodeUtil {
             super();
         }
 
-        ResultCode(int code, String desc) {
+        public ResultCode(int code, String desc) {
             this.code = code;
             this.desc = desc;
         }

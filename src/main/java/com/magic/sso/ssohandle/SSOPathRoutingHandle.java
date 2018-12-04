@@ -1,5 +1,6 @@
 package com.magic.sso.ssohandle;
 
+import com.magic.sso.except.BaseExcept;
 import com.magic.sso.serverHandle.DefaultHandle;
 import com.magic.sso.ssohandle.baseHandle.SSoHttpHandle;
 import com.magic.sso.util.PathTree;
@@ -33,6 +34,7 @@ public class SSOPathRoutingHandle implements HttpHandler {
 
     /**
      * 初始化根root
+     *
      * @throws Exception
      */
     private void rootPathInit() {
@@ -45,11 +47,12 @@ public class SSOPathRoutingHandle implements HttpHandler {
         }
         pathTree.setNextPathTree(new HashMap<>());
         pathTree.setPath("");
-        this.rootPathtree=pathTree;
+        this.rootPathtree = pathTree;
     }
 
     /**
      * 添加相关的信息到 httphandle中
+     *
      * @param httpHandle
      * @return
      */
@@ -78,6 +81,7 @@ public class SSOPathRoutingHandle implements HttpHandler {
 
     /**
      * 遍历树查找指定的节点的处理器,使用最长匹配
+     *
      * @param node
      * @return
      */
@@ -86,25 +90,29 @@ public class SSOPathRoutingHandle implements HttpHandler {
     }
 
     private SSoHttpHandle findhandle(String[] node, int index, PathTree nowPath) {
-        if (index + 1 < node.length && nowPath.getNextPathTree().containsKey(node[index + 1])){
-            return findhandle(node,index+1,nowPath.getNextPathTree().get(node[index+1]));
-        }else{
+        if (index + 1 < node.length && nowPath.getNextPathTree().containsKey(node[index + 1])) {
+            return findhandle(node, index + 1, nowPath.getNextPathTree().get(node[index + 1]));
+        } else {
             return nowPath.getPathEndHandle();
         }
     }
 
     @Override
-    public void handleRequest(HttpServerExchange exchange) throws Exception {
-        exchange.getResponseHeaders().put(Headers.CONTENT_TYPE,"application/json;charset=UTF-8");
-        logger.info("请求传入参数:{}", exchange.getRequestURL());
-        String[] node =  (this.rootPath+exchange.getRequestPath()).split("/");
-        SSoHttpHandle httpHandle = this.findhandle(node);
-        if (httpHandle == null) {
-            exchange.getResponseSender().send("error");
-            return;
-        }
-        if (exchange.getRequestMethod().equals(httpHandle.getMethod())) {
-            exchange.dispatch(httpHandle);
+    public void handleRequest(HttpServerExchange exchange) {
+        try {
+            exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "application/json;charset=UTF-8");
+            logger.info("请求传入参数:{}", exchange.getRequestURL());
+            String[] node = (this.rootPath + exchange.getRequestPath()).split("/");
+            SSoHttpHandle httpHandle = this.findhandle(node);
+            if (httpHandle == null) {
+                exchange.getResponseSender().send("error");
+                return;
+            }
+            if (exchange.getRequestMethod().equals(httpHandle.getMethod())) {
+                exchange.dispatch(httpHandle);
+            }
+        }catch (Exception except){
+            
         }
     }
 }
