@@ -10,7 +10,7 @@ public class SSoMain {
     public static void main(String[] args) throws Exception {
 
         //DemoSSoHandle demoSSoHandle = new DemoSSoHandle("/test", Methods.GET);
-        UserHandle userHandle = new UserHandle("/user");
+        UserHandle userHandle = new UserHandle("user");
         RegisteredHandle registeredHandle = new RegisteredHandle("register");
         SSOPathRoutingHandle handle = new SSOPathRoutingHandle();
 

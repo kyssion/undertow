@@ -2,6 +2,7 @@ package com.magic.sso.util;
 
 public class ResultCodeUtil {
 
+    public static ResultCode OK = new ResultCode(200, "成功");
     public static ResultCode USER_ID_ERROR = new ResultCode(6001, "用户账号错误,请重试");
     public static ResultCode PASSWORD_ERROR = new ResultCode(6002, "用户密码错误请重试");
     public static ResultCode USER_ID_FORMAT_ERROR = new ResultCode(6003, "用户账号格式错误请重试");
