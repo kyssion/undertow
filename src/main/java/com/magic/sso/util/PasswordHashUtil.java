@@ -1,5 +1,8 @@
 package com.magic.sso.util;
 
+import org.apache.commons.codec.binary.StringUtils;
+import org.apache.commons.codec.digest.DigestUtils;
+
 public class PasswordHashUtil {
 
     /**
@@ -8,8 +11,7 @@ public class PasswordHashUtil {
      * @return
      */
     public static String passwordToHash(String password){
-
-        return password;
+        return DigestUtils.sha512Hex(password);
     }
 
 }

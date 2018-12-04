@@ -1,16 +1,33 @@
 package com.magic.sso.bean;
 
-import com.magic.sso.util.simpleSql.SqlParams;
 
-public class User implements SqlParams {
+public class User {
+
+    public static final int USER_EFFECT=1;
+
     private String id;
     private String userId;
-    private String passwodHash;
+    private String passwordHash;
     private String userYears;
     private String email;
     private String tell;
-    private String regTime;
+    private long regTime;
     private int status;
+
+    public User(String userId, String password, String userYear, String tell, String email) {
+        this.userId=userId;
+        this.passwordHash=password;
+        this.userYears=userYear;
+        this.tell=tell;
+        this.email=email;
+        this.regTime=System.currentTimeMillis();
+        this.status= USER_EFFECT;
+    }
+
+    public User(){
+        this.regTime=System.currentTimeMillis();
+        this.status= USER_EFFECT;
+    }
 
     public String getId() {
         return id;
@@ -29,11 +46,11 @@ public class User implements SqlParams {
     }
 
     public String getPasswodHash() {
-        return passwodHash;
+        return passwordHash;
     }
 
     public void setPasswodHash(String passwodHash) {
-        this.passwodHash = passwodHash;
+        this.passwordHash = passwodHash;
     }
 
     public String getUserYears() {
@@ -60,11 +77,11 @@ public class User implements SqlParams {
         this.tell = tell;
     }
 
-    public String getRegTime() {
+    public long getRegTime() {
         return regTime;
     }
 
-    public void setRegTime(String regTime) {
+    public void setRegTime(long regTime) {
         this.regTime = regTime;
     }
 
@@ -76,11 +93,4 @@ public class User implements SqlParams {
         this.status = status;
     }
 
-    @Override
-    public String[] getParams() {
-        String[] param = new String[]{
-                this.userId,this.passwodHash,this.userYears,this.email,this.tell,this.regTime,String.valueOf(this.status)
-        };
-        return param;
-    }
 }

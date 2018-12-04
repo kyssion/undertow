@@ -1,8 +1,16 @@
 package com.magic.sso.serverHandle;
 
+import com.magic.sso.bean.User;
 import com.magic.sso.ssohandle.baseHandle.SSoResourceHttpHandle;
+import com.magic.sso.util.PasswordHashUtil;
+import com.magic.sso.util.UserUtil;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HttpString;
+
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Queue;
 
 public class RegisteredHandle extends SSoResourceHttpHandle {
 
@@ -21,7 +29,9 @@ public class RegisteredHandle extends SSoResourceHttpHandle {
     @Override
     public void handleRequest(HttpServerExchange exchange) throws Exception {
         if(exchange.getRequestPath().equals(this.getPath()+REGISTERUSER)){
-            this.Registeruser(exchange);
+            Map<String, Deque<String>> params = exchange.getQueryParameters();
+            User u =UserUtil.createUserByRegister(exchange);
+            this.Registeruser(u);
             return;
         }
         if(exchange.getRequestPath().equals(this.getPath()+REGISTERPAGE)){
@@ -31,9 +41,9 @@ public class RegisteredHandle extends SSoResourceHttpHandle {
     /**
      * 注册用户信息
      *
-     * @param exchange
+     * @param user 用户的user信息
      */
-    private void Registeruser(HttpServerExchange exchange) {
+    private void Registeruser(User user) {
 
     }
 

@@ -1,5 +1,6 @@
 package com.magic.sso;
 
+import com.magic.sso.serverHandle.RegisteredHandle;
 import com.magic.sso.serverHandle.TestHandle;
 import com.magic.sso.serverHandle.UserHandle;
 import com.magic.sso.ssohandle.DemoSSoHandle;
@@ -11,14 +12,13 @@ public class SSoMain {
 
     public static void main(String[] args) throws Exception {
 
-        DemoSSoHandle demoSSoHandle = new DemoSSoHandle("/test", Methods.GET);
-        UserHandle userHandle = new UserHandle("/user", Methods.GET);
-
+        //DemoSSoHandle demoSSoHandle = new DemoSSoHandle("/test", Methods.GET);
+        UserHandle userHandle = new UserHandle("/user");
+        RegisteredHandle registeredHandle = new RegisteredHandle("register");
         SSOPathRoutingHandle handle = new SSOPathRoutingHandle();
 
-
-        handle.addSSoHttpHandle(new TestHandle("sdf/fff/ddd","one"));
-        handle.addSSoHttpHandle(new TestHandle("sdf/fff/sdf/ddd","two"));
+        handle.addSSoHttpHandle(userHandle);
+        handle.addSSoHttpHandle(registeredHandle);
 
         Undertow server = Undertow.builder()
                 .addHttpListener(8888, "localhost")
