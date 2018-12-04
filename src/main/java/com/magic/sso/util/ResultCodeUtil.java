@@ -10,7 +10,8 @@ public class ResultCodeUtil {
     public static ResultCode PASSWORD_NOT_SAME = new ResultCode(6005, "用户两次输入密码不同请重试");
     public static ResultCode EMAIL_FORMAT_ERROR = new ResultCode(6006, "用户email邮箱格式错误请重试");
     public static ResultCode TELL_FORMAT_ERROR = new ResultCode(6007, "用户电话号码格式错误请重试");
-
+    public static ResultCode USER_HAS_REGISTER = new ResultCode(6008,"用户已经注册请重试");
+    public static ResultCode USER_REGISTER_ERROR = new ResultCode(6009,"用户注册出现异常请重试");
     public static class ResultCode {
 
         private int code;
