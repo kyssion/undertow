@@ -1,8 +1,9 @@
-package com.magic.sso.ssohandle;
+package com.magic.sso.serverHandle;
 
 import com.magic.sso.ssohandle.baseHandle.SSoHttpHandle;
 import io.undertow.io.IoCallback;
 import io.undertow.io.Sender;
+import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.server.handlers.resource.ClassPathResourceManager;
 import io.undertow.server.handlers.resource.Resource;
@@ -10,13 +11,14 @@ import io.undertow.util.HttpString;
 
 import java.io.IOException;
 
-public class DemoSSoHandle extends SSoHttpHandle {
-    public DemoSSoHandle(String path, HttpString method) throws Exception {
-        super(path,method);
+public class DefaultHandle extends SSoHttpHandle {
+
+    public DefaultHandle(String path, HttpString method) throws Exception {
+        super(path, method);
     }
 
-    public DemoSSoHandle(String path) throws Exception {
-        super("/"+path);
+    public DefaultHandle(String path) throws Exception {
+        super(path);
     }
 
     @Override

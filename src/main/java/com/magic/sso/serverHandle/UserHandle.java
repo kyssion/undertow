@@ -1,20 +1,22 @@
 package com.magic.sso.serverHandle;
 
+import com.magic.sso.bean.User;
+import com.magic.sso.dao.TestDao;
 import com.magic.sso.ssohandle.baseHandle.SSoResourceHttpHandle;
-import com.magic.sso.util.DateBaseUtil;
+import com.magic.sso.util.MybatisUtil;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HttpString;
+import org.apache.ibatis.session.SqlSession;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Deque;
+import java.util.Map;
 
 
 public class UserHandle extends SSoResourceHttpHandle {
 
-    private  String USERLOGIN = this.getPath()+"userLogin";
-    private  String USERLOGOUT = this.getPath()+"userLogOut";
+    private  String USERLOGIN = this.getPath()+"/userLogin";
+    private  String USERLOGOUT = this.getPath()+"/userLogOut";
 
     public UserHandle(String path, HttpString method) throws Exception {
         super(path, method);
@@ -26,12 +28,14 @@ public class UserHandle extends SSoResourceHttpHandle {
 
     @Override
     public void handleRequest(HttpServerExchange exchange) throws Exception {
+        Map<String, Deque<String>> map=exchange.getQueryParameters();
         if(exchange.getRequestPath().equals(USERLOGIN)){
-            this.userLogin(exchange);
+            this.userLogin(map.get("user_id").getFirst(),
+                    map.get("password").getFirst());
             return;
         }
         if(exchange.getRequestPath().equals(USERLOGOUT)){
-            this.userLogin(exchange);
+            this.userLogOut(map.get("user_id").getFirst());
             return;
         }
 
@@ -40,21 +44,22 @@ public class UserHandle extends SSoResourceHttpHandle {
 
     /**
      * 用户登入处理函数
-     * @param exchange
+     * @param userId
+     * @param password
+     * @throws SQLException
      */
-    private void userLogin(HttpServerExchange exchange) throws SQLException {
-        Connection connection=DateBaseUtil.getDataSource().getConnection();
-        PreparedStatement statement= connection.prepareStatement("select * from user where id = ?");
-        statement.setString(1,"1");
-        ResultSet resultSet= statement.executeQuery();
-
+    private void userLogin(String userId,String password) throws SQLException {
+        SqlSession sqlSession = MybatisUtil.getSqlSession();
+        TestDao testDao = MybatisUtil.getMapper(sqlSession,TestDao.class);
+        User user = testDao.getUserByUserId(userId,password);
+        System.out.println(user.getEmail()+user.getId());
     }
 
     /**
      * 用户登出成立函数
-     * @param exchange
+     * @param userId
      */
-    private void userLogOut(HttpServerExchange exchange){
+    private void userLogOut(String userId){
 
     }
 

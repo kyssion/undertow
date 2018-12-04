@@ -2,6 +2,7 @@ package com.magic.sso.util;
 
 
 import com.alibaba.druid.pool.DruidDataSource;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +12,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * 已经过时的东西已经不再使用了
+ */
+@Deprecated
 public class DateBaseUtil {
     private static final DruidDataSource dataSource = new DruidDataSource();
     private static final String DATESOURCESQLURL = "dataSouce.sql.url";
@@ -48,6 +53,16 @@ public class DateBaseUtil {
             statement.setString(a + 1, paralist[a]);
         }
         return statement;
+    }
+
+    public static ResultSet runSqlWithResult(Connection connection,String sql,SqlParams params) throws SQLException {
+        PreparedStatement statement = createPrePatedStatement(connection,sql,params);
+        return statement.executeQuery();
+    }
+
+    public static boolean runSqlNoResult(Connection connection,String sql,SqlParams params) throws SQLException {
+        PreparedStatement statement = createPrePatedStatement(connection,sql,params);
+        return statement.execute();
     }
 
     public static void batchSQL(Connection connection, String sql, SqlParams[] params) throws SQLException {
