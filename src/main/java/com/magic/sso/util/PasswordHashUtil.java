@@ -1,12 +1,15 @@
 package com.magic.sso.util;
 
 public class PasswordHashUtil {
-    public String passwordToHash(String password){
+
+    /**
+     * 将用户密码使用MD5进行加密
+     * @param password
+     * @return
+     */
+    public static String passwordToHash(String password){
+
         return password;
     }
 
-    public String hashToPassword(String hashItem){
-        String password=null;
-        return password;
-    }
 }

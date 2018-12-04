@@ -1,4 +1,4 @@
-package com.magic.sso.util;
+package com.magic.sso.util.simpleSql;
 
 public interface SqlParams {
     String[] getParams();

@@ -1,10 +1,12 @@
 package com.magic.sso.util;
 
 import com.magic.sso.ssohandle.baseHandle.SSoHttpHandle;
-import io.undertow.server.HttpHandler;
 
 import java.util.HashMap;
 
+/**
+ * url 路径解析地址
+ */
 public class PathTree {
     private String path;
     private HashMap<String,PathTree> nextPathTree;

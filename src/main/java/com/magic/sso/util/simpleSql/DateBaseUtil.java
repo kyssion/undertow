@@ -1,8 +1,7 @@
-package com.magic.sso.util;
+package com.magic.sso.util.simpleSql;
 
 
 import com.alibaba.druid.pool.DruidDataSource;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;

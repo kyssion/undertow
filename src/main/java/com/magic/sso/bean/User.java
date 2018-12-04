@@ -1,6 +1,6 @@
 package com.magic.sso.bean;
 
-import com.magic.sso.util.SqlParams;
+import com.magic.sso.util.simpleSql.SqlParams;
 
 public class User implements SqlParams {
     private String id;

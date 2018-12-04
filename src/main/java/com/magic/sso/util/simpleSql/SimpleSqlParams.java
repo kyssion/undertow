@@ -1,6 +1,6 @@
-package com.magic.sso.util;
+package com.magic.sso.util.simpleSql;
 
-public class SimpleSqlParams implements SqlParams{
+public class SimpleSqlParams implements SqlParams {
 
     private String[] params;
 
