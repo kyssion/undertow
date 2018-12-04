@@ -21,7 +21,6 @@ public class TestHandle extends SSoHttpHandle {
     @Override
     public void handleRequest(HttpServerExchange exchange) throws Exception {
         String s = exchange.getQueryParameters().get("i").getFirst();
-        System.out.println(s);
         exchange.getResponseSender().send("中国");
     }
 }

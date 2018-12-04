@@ -93,12 +93,10 @@ public class SSOPathRoutingHandle implements HttpHandler {
         }
     }
 
-
     @Override
     public void handleRequest(HttpServerExchange exchange) throws Exception {
         exchange.getResponseHeaders().put(Headers.CONTENT_TYPE,"application/json;charset=UTF-8");
         logger.info("请求传入参数:{}", exchange.getRequestURL());
-        System.out.println(this.rootPath + exchange.getRequestPath());
         String[] node =  (this.rootPath+exchange.getRequestPath()).split("/");
         SSoHttpHandle httpHandle = this.findhandle(node);
         if (httpHandle == null) {

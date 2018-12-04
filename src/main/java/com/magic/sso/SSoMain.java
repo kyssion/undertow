@@ -1,11 +1,8 @@
 package com.magic.sso;
 
 import com.magic.sso.serverHandle.TestHandle;
-import com.magic.sso.serverHandle.UserHandle;
-import com.magic.sso.ssohandle.DemoSSoHandle;
 import com.magic.sso.ssohandle.SSOPathRoutingHandle;
 import io.undertow.Undertow;
-import io.undertow.util.Methods;
 
 public class SSoMain {
 
@@ -17,7 +14,7 @@ public class SSoMain {
         handle.addSSoHttpHandle(new TestHandle("sdf/fff/ddd","one"));
         handle.addSSoHttpHandle(new TestHandle("sdf/fff/sdf/ddd","two"));
         Undertow server = Undertow.builder()
-                .addHttpListener(8080, "localhost")
+                .addHttpListener(8888, "localhost")
                 .setHandler(handle).build();
         server.start();
     }

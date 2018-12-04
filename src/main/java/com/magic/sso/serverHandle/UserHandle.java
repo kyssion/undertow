@@ -52,7 +52,6 @@ public class UserHandle extends SSoResourceHttpHandle {
         SqlSession sqlSession = MybatisUtil.getSqlSession();
         TestDao testDao = MybatisUtil.getMapper(sqlSession,TestDao.class);
         User user = testDao.getUserByUserId(userId,password);
-        System.out.println(user.getEmail()+user.getId());
     }
 
     /**
