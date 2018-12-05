@@ -7,7 +7,9 @@ import com.magic.sso.except.BaseExcept;
 import com.magic.sso.ssohandle.baseHandle.SSoResourceHttpHandle;
 import com.magic.sso.util.*;
 import io.undertow.server.HttpServerExchange;
+import io.undertow.util.Headers;
 import io.undertow.util.HttpString;
+import org.apache.ibatis.io.DefaultVFS;
 import org.apache.ibatis.session.SqlSession;
 
 import java.io.IOException;
@@ -31,17 +33,20 @@ public class RegisteredHandle extends SSoResourceHttpHandle {
     @Override
     public void handleRequest(HttpServerExchange exchange) throws JsonProcessingException {
         try {
-            if (exchange.getRequestPath().equals(this.getPath() + REGISTERUSER)) {
+            if (exchange.getRequestPath().endsWith(REGISTERUSER)) {
                 Map<String, Deque<String>> params = exchange.getQueryParameters();
                 User u = UserUtil.createUserByRegister(exchange);
                 this.Registeruser(u);
+                HeaderUtil.responseJSON(exchange);
+                exchange.getResponseSender().send(ResponseUtil.getResponsUtil(null,ResultCodeUtil.OK));
                 return;
             }
             this.RegisterPage(exchange);
         } catch (BaseExcept except) {
             exchange.getResponseSender().send(ResponseUtil.getResponsUtil(null, except.getResultCode()));
-        } catch (IOException e) {
+        } catch (Exception e) {
             exchange.getResponseSender().send(ResponseUtil.getResponsUtil(null, ResultCodeUtil.SYSTEM_ERROR));
+            e.printStackTrace();
         }
     }
 
@@ -68,6 +73,7 @@ public class RegisteredHandle extends SSoResourceHttpHandle {
     }
 
     private void RegisterPage(HttpServerExchange exchange) throws IOException {
+        HeaderUtil.responseTEXT(exchange);
         this.resourceHandler(exchange, "test");
     }
 }

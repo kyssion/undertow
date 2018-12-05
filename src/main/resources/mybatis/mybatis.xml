@@ -12,13 +12,12 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="127.0.0.1"/>
+                <property name="url" value="jdbc:mysql://192.168.191.2:3306/magic_user?useUnicode=true&amp;characterEncoding=utf-8&amp;allowMultiQueries=true&amp;zeroDateTimeBehavior=convertToNull" />
                 <property name="username" value="magic"/>
                 <property name="password" value="14159265jkl"/>
             </dataSource>
         </environment>
     </environments>
-
     <mappers>
         <package name="com.magic.sso.dao"/>
     </mappers>

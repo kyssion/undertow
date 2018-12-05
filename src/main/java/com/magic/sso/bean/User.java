@@ -8,13 +8,13 @@ public class User {
     private String id;
     private String userId;
     private String passwordHash;
-    private String userYears;
+    private long userYears;
     private String email;
     private String tell;
     private long regTime;
     private int status;
 
-    public User(String userId, String password, String userYear, String tell, String email) {
+    public User(String userId, String password, long userYear, String tell, String email) {
         this.userId=userId;
         this.passwordHash=password;
         this.userYears=userYear;
@@ -53,11 +53,11 @@ public class User {
         this.passwordHash = passwodHash;
     }
 
-    public String getUserYears() {
+    public long getUserYears() {
         return userYears;
     }
 
-    public void setUserYears(String userYears) {
+    public void setUserYears(long userYears) {
         this.userYears = userYears;
     }
 

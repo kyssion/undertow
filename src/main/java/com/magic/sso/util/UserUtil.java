@@ -15,14 +15,19 @@ public class UserUtil {
     public static User createUserByRegister(HttpServerExchange exchange) throws BaseExcept {
         Map<String, Deque<String>> params = exchange.getQueryParameters();
         String userId = isUserIdFormatCorrect(params.get("userId").getFirst());
+
         String password_f = params.get("passwordFir").getFirst();
         String password_e = params.get("passwordEnd").getFirst();
+
+        if(password_e==null||password_f==null){
+            throw new BaseExcept(ResultCodeUtil.PASSWORD_FORMAT_ERROR);
+        }
 
         if(password_f.equals(password_e)) {
             password_f = isPasswordFormatCorrect(password_f);
         }
 
-        String userYear = params.get("userYear").getFirst();
+        long userYear = isUserYearFormatCorrect(params.get("userYear").getFirst());
         String userTell = isTellFormatCorrect(params.get("tell").getFirst());
         String email = isEmailFormatCorrect(params.get("email").getFirst());
 
@@ -30,19 +35,27 @@ public class UserUtil {
                 userYear,userTell,email);
     }
 
-    public static User creatUser(String userId,String password,String userYear,String tell,String email){
+    private static long isUserYearFormatCorrect(String userYear) throws BaseExcept {
+        try{
+            return Long.valueOf(userYear);
+        }catch (Exception e){
+            throw new BaseExcept(ResultCodeUtil.USER_YEARS_FORMAT_ERROR);
+        }
+    }
+
+    public static User creatUser(String userId,String password,long userYear,String tell,String email){
         return new User (userId,password,userYear,tell,email);
     }
 
     public static String isUserIdFormatCorrect(String userId) throws BaseExcept {
-        if(userId.length()<=4){
+        if(userId==null||userId.length()<=4){
             throw new BaseExcept(ResultCodeUtil.USER_ID_FORMAT_ERROR);
         }
         return userId;
     }
 
     public static String isPasswordFormatCorrect(String password) throws BaseExcept {
-        if(password.length()<12&&!isStartWithUppercase(password)&&!isOnlyHasWord(password.toCharArray())){
+        if(password.length()<12||!isStartWithUppercase(password)||!isOnlyHasWord(password.toCharArray())){
             throw new BaseExcept(ResultCodeUtil.PASSWORD_FORMAT_ERROR);
         }
         return password;

@@ -11,7 +11,7 @@ public class PasswordHashUtil {
      * @return
      */
     public static String passwordToHash(String password){
-        return DigestUtils.sha512Hex(password);
+        return DigestUtils.sha256Hex(password);
     }
 
 }

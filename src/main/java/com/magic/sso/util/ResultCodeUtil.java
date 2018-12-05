@@ -13,6 +13,7 @@ public class ResultCodeUtil {
     public static ResultCode TELL_FORMAT_ERROR = new ResultCode(6007, "用户电话号码格式错误请重试");
     public static ResultCode USER_HAD_REGISTER = new ResultCode(6008,"用户已经注册请重试");
     public static ResultCode USER_REGISTER_ERROR = new ResultCode(6009,"用户注册出现异常请重试");
+    public static ResultCode USER_YEARS_FORMAT_ERROR = new ResultCode(6010, "用户生日格式错误请重试");
     public static class ResultCode {
 
         private int code;
