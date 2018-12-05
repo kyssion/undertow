@@ -10,6 +10,7 @@ import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HttpString;
 import org.apache.ibatis.session.SqlSession;
 
+import java.io.IOException;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,8 +19,6 @@ import java.util.Queue;
 public class RegisteredHandle extends SSoResourceHttpHandle {
 
     private static String REGISTERUSER = "registerUser";
-
-    private static String REGISTERPAGE = "registerPage";
 
     public RegisteredHandle(String path, HttpString method) throws Exception {
         super(path, method);
@@ -38,13 +37,14 @@ public class RegisteredHandle extends SSoResourceHttpHandle {
                 this.Registeruser(u);
                 return;
             }
-            if (exchange.getRequestPath().equals(this.getPath() + REGISTERPAGE)) {
-                this.RegisterPage(exchange);
-            }
-        }catch (BaseExcept except){
-            exchange.getResponseSender().send(ResponseUtil.getResponsUtil(null,except.getResultCode()));
+            this.RegisterPage(exchange);
+        } catch (BaseExcept except) {
+            exchange.getResponseSender().send(ResponseUtil.getResponsUtil(null, except.getResultCode()));
+        } catch (IOException e) {
+            exchange.getResponseSender().send(ResponseUtil.getResponsUtil(null, ResultCodeUtil.SYSTEM_ERROR));
         }
     }
+
     /**
      * 注册用户信息
      *
@@ -55,19 +55,19 @@ public class RegisteredHandle extends SSoResourceHttpHandle {
         try {
             UserDao userDao = sqlSession.getMapper(UserDao.class);
             int hasRegister = userDao.hasRegisteruser(user.getUserId());
-            if(hasRegister>0){
-                throw new BaseExcept(ResultCodeUtil.USER_HAS_REGISTER);
+            if (hasRegister > 0) {
+                throw new BaseExcept(ResultCodeUtil.USER_HAD_REGISTER);
             }
             int isRegiter = userDao.registerUser(user);
-            if(isRegiter<=0){
+            if (isRegiter <= 0) {
                 throw new BaseExcept(ResultCodeUtil.USER_REGISTER_ERROR);
             }
-        }finally {
+        } finally {
             sqlSession.close();
         }
     }
 
-    private void RegisterPage(HttpServerExchange exchange) {
-
+    private void RegisterPage(HttpServerExchange exchange) throws IOException {
+        this.resourceHandler(exchange, "test");
     }
 }
