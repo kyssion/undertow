@@ -1,7 +1,8 @@
 package com.magic.sso.util.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.magic.sso.util.ResultCodeUtil;
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseBase {
 
     public ResponseBase(){

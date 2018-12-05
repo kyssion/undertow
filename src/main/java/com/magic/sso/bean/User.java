@@ -1,6 +1,5 @@
 package com.magic.sso.bean;
 
-
 public class User {
 
     public static final int USER_EFFECT=1;
@@ -13,6 +12,13 @@ public class User {
     private String tell;
     private long regTime;
     private int status;
+
+    /**
+     * 这三个属性映射 userLogin表
+     */
+    private long loginTime;
+    private int loginStatus;
+    private String token;
 
     public User(String userId, String password, long userYear, String tell, String email) {
         this.userId=userId;
@@ -27,6 +33,10 @@ public class User {
     public User(){
         this.regTime=System.currentTimeMillis();
         this.status= USER_EFFECT;
+    }
+
+    public static int getUserEffect() {
+        return USER_EFFECT;
     }
 
     public String getId() {
@@ -45,12 +55,12 @@ public class User {
         this.userId = userId;
     }
 
-    public String getPasswodHash() {
+    public String getPasswordHash() {
         return passwordHash;
     }
 
-    public void setPasswodHash(String passwodHash) {
-        this.passwordHash = passwodHash;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public long getUserYears() {
@@ -93,4 +103,27 @@ public class User {
         this.status = status;
     }
 
+    public long getLoginTime() {
+        return loginTime;
+    }
+
+    public void setLoginTime(long loginTime) {
+        this.loginTime = loginTime;
+    }
+
+    public int getLoginStatus() {
+        return loginStatus;
+    }
+
+    public void setLoginStatus(int loginStatus) {
+        this.loginStatus = loginStatus;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 }

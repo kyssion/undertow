@@ -17,8 +17,7 @@ public class SSoMain {
         handle.addSSoHttpHandle(userHandle);
         handle.addSSoHttpHandle(registeredHandle);
 
-        Undertow server = Undertow.builder()
-                .addHttpListener(8888, "localhost")
+        Undertow server = Undertow.builder().addHttpListener(8888, "localhost")
                 .setHandler(handle).build();
         server.start();
     }

@@ -2,7 +2,6 @@ package com.magic.sso.util;
 
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.Headers;
-import org.apache.ibatis.io.DefaultVFS;
 
 public class HeaderUtil {
     public static void responseJSON(HttpServerExchange exchange){
