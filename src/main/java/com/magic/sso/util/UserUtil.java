@@ -1,8 +1,10 @@
 package com.magic.sso.util;
 
 import com.magic.sso.bean.User;
+import com.magic.sso.dao.UserDao;
 import com.magic.sso.except.BaseExcept;
 import io.undertow.server.HttpServerExchange;
+import org.apache.ibatis.session.SqlSession;
 
 import java.util.Deque;
 import java.util.Map;
@@ -136,7 +138,19 @@ public class UserUtil {
         return m.matches();
     }
 
-    public static User getUserForLogin(HttpServerExchange exchange) {
-        return new User();
+    public static User getUserForLogin(Map<String, Deque<String>> exchange) throws BaseExcept {
+        SqlSession sqlSession = MybatisUtil.getSqlSession();
+        try{
+            String userId = exchange.get("user_id").getFirst();
+            String password = exchange.get("password").getFirst();
+            UserDao userDao = sqlSession.getMapper(UserDao.class);
+            User user = userDao.findUserByIdAndPassword(userId,password);
+            return user;
+        } catch (Exception e){
+            throw new BaseExcept(ResultCodeUtil.SYSTEM_ERROR);
+        }
+        finally {
+            sqlSession.close();
+        }
     }
 }

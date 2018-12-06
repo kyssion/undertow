@@ -47,12 +47,8 @@ public class LoginHandle extends SSoResourceHttpHandle {
         try {
             if (exchange.getRequestPath().endsWith(USERLOGIN)) {
                 Map<String, Deque<String>> params = exchange.getQueryParameters();
-                HeaderUtil.responseJSON(exchange);
-                //写登入cookie
-                //生成jsonp分发cookie列表
+                User user =UserUtil.getUserForLogin(params);
 
-                exchange.getResponseSender().send(ResponseUtil.getResponsUtil(null, ResultCodeUtil.OK));
-                throw new BaseExcept();
                 return;
             }
         } catch (BaseExcept except) {
