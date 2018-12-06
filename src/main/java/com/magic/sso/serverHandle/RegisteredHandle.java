@@ -70,7 +70,9 @@ public class RegisteredHandle extends SSoResourceHttpHandle {
             if (hasRegister > 0) {
                 throw new BaseExcept(ResultCodeUtil.USER_HAD_REGISTER);
             }
+
             int isRegiter = userDao.registerUser(user);
+
             if (isRegiter <= 0) {
                 throw new BaseExcept(ResultCodeUtil.USER_REGISTER_ERROR);
             }
