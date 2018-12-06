@@ -12,8 +12,7 @@ import java.util.regex.PatternSyntaxException;
 
 public class UserUtil {
 
-    public static User createUserByRegister(HttpServerExchange exchange) throws BaseExcept {
-        Map<String, Deque<String>> params = exchange.getQueryParameters();
+    public static User createUserForRegister(Map<String, Deque<String>> params) throws BaseExcept {
         String userId = isUserIdFormatCorrect(params.get("userId").getFirst());
 
         String password_f = params.get("passwordFir").getFirst();
@@ -135,5 +134,9 @@ public class UserUtil {
         Pattern p = Pattern.compile(regExp);
         Matcher m = p.matcher(str);
         return m.matches();
+    }
+
+    public static User getUserForLogin(HttpServerExchange exchange) {
+        return new User();
     }
 }
