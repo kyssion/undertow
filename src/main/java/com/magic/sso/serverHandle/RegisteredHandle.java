@@ -1,12 +1,14 @@
 package com.magic.sso.serverHandle;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.magic.sso.bean.CookieResult;
 import com.magic.sso.bean.User;
 import com.magic.sso.dao.UserDao;
 import com.magic.sso.except.BaseExcept;
 import com.magic.sso.ssohandle.baseHandle.SSoResourceHttpHandle;
 import com.magic.sso.util.*;
 import io.undertow.server.HttpServerExchange;
+import io.undertow.server.handlers.Cookie;
 import io.undertow.util.Headers;
 import io.undertow.util.HttpString;
 import org.apache.ibatis.io.DefaultVFS;
@@ -38,7 +40,11 @@ public class RegisteredHandle extends SSoResourceHttpHandle {
                 User u = UserUtil.createUserByRegister(exchange);
                 this.Registeruser(u);
                 HeaderUtil.responseJSON(exchange);
-                exchange.getResponseSender().send(ResponseUtil.getResponsUtil(null,ResultCodeUtil.OK));
+                //写登入cookie
+                Cookie cookie = writeCookie(exchange, u.getUserId(), u.getPasswordHash());
+                //生成jsonp分发cookie列表
+                CookieResult cookieResult = CookieUtil.readResultUrl(cookie, params.get("url").getFirst());
+                exchange.getResponseSender().send(ResponseUtil.getResponsUtil(cookieResult, ResultCodeUtil.OK));
                 return;
             }
             this.RegisterPage(exchange);
@@ -49,6 +55,7 @@ public class RegisteredHandle extends SSoResourceHttpHandle {
             e.printStackTrace();
         }
     }
+
 
     /**
      * 注册用户信息
@@ -75,5 +82,10 @@ public class RegisteredHandle extends SSoResourceHttpHandle {
     private void RegisterPage(HttpServerExchange exchange) throws IOException {
         HeaderUtil.responseTEXT(exchange);
         this.resourceHandler(exchange, "test");
+    }
+
+
+    private Cookie writeCookie(HttpServerExchange exchange, String userId, String passwordhash) {
+        return CookieUtil.writeCookie(exchange, "L_" + userId, TokenUtil.createLoginToken(userId, passwordhash));
     }
 }
