@@ -39,11 +39,7 @@ public class RegisteredHandle extends SSoResourceHttpHandle {
                 Map<String, Deque<String>> params = exchange.getQueryParameters();
                 User u = UserUtil.createUserForRegister(params);
                 this.Registeruser(u);
-                HeaderUtil.responseJSON(exchange);
-                //写登入cookie
-                Cookie cookie = writeCookie(exchange, u.getUserId(), u.getPasswordHash());
-                //生成jsonp分发cookie列表
-                CookieResult cookieResult = CookieUtil.readResultUrl(cookie, params.get("url").getFirst());
+                CookieResult cookieResult=TokenUtil.insertLoginToken(exchange,u,params.get("url").getFirst());
                 exchange.getResponseSender().send(ResponseUtil.getResponsUtil(cookieResult, ResultCodeUtil.OK));
                 return;
             }

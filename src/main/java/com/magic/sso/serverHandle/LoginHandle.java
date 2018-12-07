@@ -7,13 +7,11 @@ import com.magic.sso.except.BaseExcept;
 import com.magic.sso.ssohandle.baseHandle.SSoResourceHttpHandle;
 import com.magic.sso.util.*;
 import io.undertow.server.HttpServerExchange;
-import io.undertow.server.handlers.Cookie;
 import io.undertow.util.HttpString;
 
 import java.util.Deque;
 import java.util.Map;
 
-import static com.magic.sso.util.CookieUtil.writeCookie;
 
 public class LoginHandle extends SSoResourceHttpHandle {
 
@@ -48,7 +46,11 @@ public class LoginHandle extends SSoResourceHttpHandle {
             if (exchange.getRequestPath().endsWith(USERLOGIN)) {
                 Map<String, Deque<String>> params = exchange.getQueryParameters();
                 User user =UserUtil.getUserForLogin(params);
-
+                if(user==null){
+                    throw new BaseExcept(ResultCodeUtil.USERID_OR_PASSWORD_ERROR);
+                }
+                CookieResult cookieResult=TokenUtil.insertLoginToken(exchange,user,params.get("url").getFirst());
+                exchange.getResponseSender().send(ResponseUtil.getResponsUtil(cookieResult, ResultCodeUtil.OK));
                 return;
             }
         } catch (BaseExcept except) {

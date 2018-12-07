@@ -11,6 +11,8 @@ import java.util.List;
 public class CookieUtil {
     public static Cookie writeCookie(HttpServerExchange exchange,String writeName,String writeValue){
         Cookie cookie = new CookieImpl(writeName,writeValue);
+        cookie.setHttpOnly(true);//设置cookie只读
+        cookie.setSecure(true);//设置浏览器仅通过 HTTPS 连接传回 cookie
         exchange.setResponseCookie(cookie);
         return cookie;
     }
