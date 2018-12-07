@@ -35,9 +35,10 @@ public class RegisteredHandle extends SSoResourceHttpHandle {
                 Map<String, Deque<String>> params = exchange.getQueryParameters();
                 User u = UserUtil.createUserForRegister(params);
                 this.Registeruser(u);//注册用户
+                UserUtil.deleteLoginInfo(u.getUserId(),exchange); //重置初始化loginInfo 用户登入信息
                 u.setToken(TokenUtil.createLoginToken(u));//设置loginToken
                 UserUtil.insertLoginInfo(u);//记录userToken
-                CookieResult cookieResult = TokenUtil.insertLoginToken(exchange, u, params.get("url").getFirst());//写cookie
+                CookieResult cookieResult = CookieUtil.insertLoginToken(exchange, u, params.get("url").getFirst());//写cookie
                 exchange.getResponseSender().send(ResponseUtil.getResponsUtil(cookieResult, ResultCodeUtil.OK));
                 return;
             }
@@ -78,10 +79,5 @@ public class RegisteredHandle extends SSoResourceHttpHandle {
     private void RegisterPage(HttpServerExchange exchange) throws IOException {
         HeaderUtil.responseTEXT(exchange);
         this.resourceHandler(exchange, "test");
-    }
-
-
-    private Cookie writeCookie(HttpServerExchange exchange, String userId, String passwordhash) {
-        return CookieUtil.writeCookie(exchange, "L_" + userId, TokenUtil.createLoginToken(userId, passwordhash));
     }
 }

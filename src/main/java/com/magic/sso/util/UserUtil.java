@@ -1,8 +1,10 @@
 package com.magic.sso.util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.magic.sso.bean.User;
 import com.magic.sso.dao.UserDao;
 import com.magic.sso.except.BaseExcept;
+import io.undertow.server.HttpServerExchange;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.Deque;
@@ -157,10 +159,21 @@ public class UserUtil {
         SqlSession sqlSession = MybatisUtil.getSqlSession();
         try{
             UserDao userDao = sqlSession.getMapper(UserDao.class);
-            userDao.deleteAllLoginInfo(user.getUserId(),user.getToken(),System.currentTimeMillis());
+            userDao.deleteAllLoginInfo(user.getUserId());
             return userDao.insertLoginInfo(user.getUserId(),user.getToken(),System.currentTimeMillis());
         }finally {
             sqlSession.close();
+        }
+    }
+
+    public static void deleteLoginInfo(String user_id, HttpServerExchange exchange) throws JsonProcessingException {
+        SqlSession sqlSession = MybatisUtil.getSqlSession();
+        try{
+            UserDao userDao = sqlSession.getMapper(UserDao.class);
+            userDao.deleteAllLoginInfo(user_id);
+            CookieUtil.deleteCookie(user_id,exchange);
+        }finally {
+            exchange.getResponseSender().send(ResponseUtil.getResponsUtil(null, ResultCodeUtil.SYSTEM_ERROR));
         }
     }
 }

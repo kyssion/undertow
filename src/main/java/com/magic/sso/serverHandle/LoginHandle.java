@@ -52,7 +52,7 @@ public class LoginHandle extends SSoResourceHttpHandle {
                 }
                 user.setToken(TokenUtil.createLoginToken(user));// 设置新登入token
                 UserUtil.insertLoginInfo(user); //添加数据库
-                CookieResult cookieResult = TokenUtil.insertLoginToken(exchange, user, params.get("url").getFirst());
+                CookieResult cookieResult = CookieUtil.insertLoginToken(exchange, user, params.get("url").getFirst());
                 exchange.getResponseSender().send(ResponseUtil.getResponsUtil(cookieResult, ResultCodeUtil.OK));
                 return;
             }
@@ -69,8 +69,16 @@ public class LoginHandle extends SSoResourceHttpHandle {
      *
      * @param exchange
      */
-    private void UserLogOut(HttpServerExchange exchange) {
-
+    private void UserLogOut(HttpServerExchange exchange) throws JsonProcessingException {
+        try {
+            Map<String, Deque<String>> params = exchange.getQueryParameters();
+            String userId = params.get("user_id").getFirst();
+            UserUtil.deleteLoginInfo(userId, exchange);
+            CookieUtil.deleteCookie(userId, exchange);
+        } catch (Exception e) {
+            exchange.getResponseSender().send(ResponseUtil.getResponsUtil(null, ResultCodeUtil.SYSTEM_ERROR));
+            e.printStackTrace();
+        }
     }
 
     /**
