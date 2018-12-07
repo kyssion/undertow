@@ -1,18 +1,15 @@
 package com.magic.sso.ssohandle;
 
-import com.magic.sso.except.BaseExcept;
 import com.magic.sso.serverHandle.DefaultHandle;
 import com.magic.sso.ssohandle.baseHandle.SSoHttpHandle;
 import com.magic.sso.util.PathTree;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
-import io.undertow.util.Headers;
 import io.undertow.util.Methods;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class SSOPathRoutingHandle implements HttpHandler {
 

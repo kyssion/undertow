@@ -9,16 +9,12 @@ import com.magic.sso.ssohandle.baseHandle.SSoResourceHttpHandle;
 import com.magic.sso.util.*;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.server.handlers.Cookie;
-import io.undertow.util.Headers;
 import io.undertow.util.HttpString;
-import org.apache.ibatis.io.DefaultVFS;
 import org.apache.ibatis.session.SqlSession;
 
 import java.io.IOException;
 import java.util.Deque;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Queue;
 
 public class RegisteredHandle extends SSoResourceHttpHandle {
 
