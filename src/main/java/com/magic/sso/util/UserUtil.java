@@ -19,11 +19,11 @@ public class UserUtil {
         String password_f = params.get("passwordFir").getFirst();
         String password_e = params.get("passwordEnd").getFirst();
 
-        if(password_e==null||password_f==null){
+        if (password_e == null || password_f == null) {
             throw new BaseExcept(ResultCodeUtil.PASSWORD_FORMAT_ERROR);
         }
 
-        if(password_f.equals(password_e)) {
+        if (password_f.equals(password_e)) {
             password_f = isPasswordFormatCorrect(password_f);
         }
 
@@ -31,51 +31,52 @@ public class UserUtil {
         String userTell = isTellFormatCorrect(params.get("tell").getFirst());
         String email = isEmailFormatCorrect(params.get("email").getFirst());
 
-        return creatUser(userId,PasswordHashUtil.passwordToHash(password_f),
-                userYear,userTell,email);
+        return creatUser(userId, PasswordHashUtil.passwordToHash(password_f),
+                userYear, userTell, email);
     }
 
     private static long isUserYearFormatCorrect(String userYear) throws BaseExcept {
-        try{
+        try {
             return Long.valueOf(userYear);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new BaseExcept(ResultCodeUtil.USER_YEARS_FORMAT_ERROR);
         }
     }
 
-    public static User creatUser(String userId,String password,long userYear,String tell,String email){
-        return new User (userId,password,userYear,tell,email);
+    public static User creatUser(String userId, String password, long userYear, String tell, String email) {
+        return new User(userId, password, userYear, tell, email);
     }
 
     public static String isUserIdFormatCorrect(String userId) throws BaseExcept {
-        if(userId==null||userId.length()<=4){
+        if (userId == null || userId.length() <= 4) {
             throw new BaseExcept(ResultCodeUtil.USER_ID_FORMAT_ERROR);
         }
         return userId;
     }
 
     public static String isPasswordFormatCorrect(String password) throws BaseExcept {
-        if(password.length()<12||!isStartWithUppercase(password)||!isOnlyHasWord(password.toCharArray())){
+        if (password.length() < 12 || !isStartWithUppercase(password) || !isOnlyHasWord(password.toCharArray())) {
             throw new BaseExcept(ResultCodeUtil.PASSWORD_FORMAT_ERROR);
         }
         return password;
     }
 
     public static boolean isStartWithUppercase(String password) throws BaseExcept {
-        if(password==null||"".equals(password)){
+        if (password == null || "".equals(password)) {
             throw new BaseExcept(ResultCodeUtil.PASSWORD_FORMAT_ERROR);
         }
-        char fist= password.charAt(0);
-        return fist>='A'&&fist<='Z';
+        char fist = password.charAt(0);
+        return fist >= 'A' && fist <= 'Z';
     }
 
     /**
      * 是否是数组和字符组合
+     *
      * @param passwordChars
      * @return
      */
-    public static boolean isOnlyHasWord(char[] passwordChars){
-        boolean hasChar=false;
+    public static boolean isOnlyHasWord(char[] passwordChars) {
+        boolean hasChar = false;
         boolean hasNumber = false;
         for (char passwordChar : passwordChars) {
             if (!hasChar && (passwordChar >= 'a' && passwordChar <= 'z' || passwordChar >= 'A' && passwordChar <= 'Z')) {
@@ -85,18 +86,18 @@ public class UserUtil {
                 hasNumber = true;
             }
         }
-        return hasChar&&hasNumber;
+        return hasChar && hasNumber;
     }
 
     public static String isEmailFormatCorrect(String email) throws BaseExcept {
-        if(!(Pattern.matches("\\w+@(\\w+.)+[a-z]{2,3}",email))) {
+        if (!(Pattern.matches("\\w+@(\\w+.)+[a-z]{2,3}", email))) {
             throw new BaseExcept(ResultCodeUtil.EMAIL_FORMAT_ERROR);
         }
         return email;
     }
 
     public static String isTellFormatCorrect(String tell) throws BaseExcept {
-        if(!(isChinaPhoneLegal(tell) || isHKPhoneLegal(tell))) {
+        if (!(isChinaPhoneLegal(tell) || isHKPhoneLegal(tell))) {
             throw new BaseExcept(ResultCodeUtil.TELL_FORMAT_ERROR);
         }
         return tell;
@@ -139,16 +140,15 @@ public class UserUtil {
 
     public static User getUserForLogin(Map<String, Deque<String>> exchange) throws BaseExcept {
         SqlSession sqlSession = MybatisUtil.getSqlSession();
-        try{
+        try {
             String userId = exchange.get("user_id").getFirst();
             String password = exchange.get("password").getFirst();
             UserDao userDao = sqlSession.getMapper(UserDao.class);
-            User user = userDao.findUserByIdAndPassword(userId,password);
+            User user = userDao.findUserByIdAndPassword(userId, password);
             return user;
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new BaseExcept(ResultCodeUtil.SYSTEM_ERROR);
-        }
-        finally {
+        } finally {
             sqlSession.close();
         }
     }

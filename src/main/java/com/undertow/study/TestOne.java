@@ -26,6 +26,7 @@ public class TestOne {
         server.start();
     }
 }
+
 class SimpleErrorPageHandler implements HttpHandler {
 
     private final HttpHandler next;

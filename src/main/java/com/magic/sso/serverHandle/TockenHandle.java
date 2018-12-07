@@ -20,15 +20,15 @@ public class TockenHandle extends SSoHttpHandle {
 
     @Override
     public void handleRequest(HttpServerExchange exchange) throws Exception {
-        if(exchange.getRequestPath().equals(this.getPath()+ADDTOCKEN)){
+        if (exchange.getRequestPath().equals(this.getPath() + ADDTOCKEN)) {
             this.addTocken(exchange);
             return;
         }
-        if(exchange.getRequestPath().equals(this.getPath()+ISTOCKENTRUE)){
+        if (exchange.getRequestPath().equals(this.getPath() + ISTOCKENTRUE)) {
             this.isTockenTrue(exchange);
             return;
         }
-        if(exchange.getRequestPath().equals(this.getPath()+DELETETOCKEN)){
+        if (exchange.getRequestPath().equals(this.getPath() + DELETETOCKEN)) {
             this.deleteTocken(exchange);
         }
     }

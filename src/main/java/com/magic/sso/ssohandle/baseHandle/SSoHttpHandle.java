@@ -9,23 +9,24 @@ import io.undertow.util.Methods;
  */
 public abstract class SSoHttpHandle implements HttpHandler {
 
-    private String path="";
+    private String path = "";
 
     //defind url method
     public HttpString method;
 
-    public SSoHttpHandle(String path,HttpString method) throws Exception {
-        if(path.startsWith("/")){
+    public SSoHttpHandle(String path, HttpString method) throws Exception {
+        if (path.startsWith("/")) {
             throw new Exception("路径匹配不能以/ 开始");
         }
-        this.path=path;
+        this.path = path;
         this.method = method;
     }
+
     public SSoHttpHandle(String path) throws Exception {
-        this(path,Methods.GET);
+        this(path, Methods.GET);
     }
 
-    public boolean inpath(String path){
+    public boolean inpath(String path) {
         return this.path.startsWith(path);
     }
 

@@ -38,14 +38,14 @@ public class WildFlyServer {
         // 设置布署包名
         deployment.setDeploymentName("test.war");
         // 添加ServletInfo
-        deployment.addServlets(servlet1,servlet2);
+        deployment.addServlets(servlet1, servlet2);
 
         // 创建DeploymentInfo2应用布署
         DeploymentInfo deployment2 = Servlets.deployment();
         deployment2.setClassLoader(WildFlyServer.class.getClassLoader());
         deployment2.setContextPath("/myapp2");
         deployment2.setDeploymentName("test2.war");
-        deployment2.addServlets(servlet1,servlet2);
+        deployment2.addServlets(servlet1, servlet2);
 
         // 使用默认Servlet容器，并将布署添加至容器
         ServletContainer container = Servlets.defaultContainer();

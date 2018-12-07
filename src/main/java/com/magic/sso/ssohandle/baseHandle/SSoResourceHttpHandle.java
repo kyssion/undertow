@@ -7,7 +7,7 @@ import io.undertow.util.HttpString;
 
 import java.io.IOException;
 
-public abstract class SSoResourceHttpHandle extends SSoHttpHandle{
+public abstract class SSoResourceHttpHandle extends SSoHttpHandle {
 
     private ResourceManager resourceManager =
             new ClassPathResourceManager(this.getClass().getClassLoader());
@@ -20,8 +20,8 @@ public abstract class SSoResourceHttpHandle extends SSoHttpHandle{
         super(path);
     }
 
-    public void resourceHandler(HttpServerExchange exchange,String path) throws IOException {
-        Resource resource= resourceManager.getResource(path);
-        resource.serve(exchange.getResponseSender(),exchange, IoCallback.END_EXCHANGE);
+    public void resourceHandler(HttpServerExchange exchange, String path) throws IOException {
+        Resource resource = resourceManager.getResource(path);
+        resource.serve(exchange.getResponseSender(), exchange, IoCallback.END_EXCHANGE);
     }
 }

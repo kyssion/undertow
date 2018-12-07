@@ -28,28 +28,29 @@ public class LoginHandle extends SSoResourceHttpHandle {
 
     @Override
     public void handleRequest(HttpServerExchange exchange) throws Exception {
-        if(exchange.getRequestPath().equals(this.getPath()+USERLOGIN)){
+        if (exchange.getRequestPath().equals(this.getPath() + USERLOGIN)) {
             this.UserLogin(exchange);
             return;
         }
-        if (exchange.getRequestPath().equals(this.getPath()+USERLOGOUT)){
+        if (exchange.getRequestPath().equals(this.getPath() + USERLOGOUT)) {
             this.UserLogOut(exchange);
         }
     }
 
     /**
      * 用户登入处理方法
+     *
      * @param exchange
      */
     private void UserLogin(HttpServerExchange exchange) throws JsonProcessingException {
         try {
             if (exchange.getRequestPath().endsWith(USERLOGIN)) {
                 Map<String, Deque<String>> params = exchange.getQueryParameters();
-                User user =UserUtil.getUserForLogin(params);
-                if(user==null){
+                User user = UserUtil.getUserForLogin(params);
+                if (user == null) {
                     throw new BaseExcept(ResultCodeUtil.USERID_OR_PASSWORD_ERROR);
                 }
-                CookieResult cookieResult=TokenUtil.insertLoginToken(exchange,user,params.get("url").getFirst());
+                CookieResult cookieResult = TokenUtil.insertLoginToken(exchange, user, params.get("url").getFirst());
                 exchange.getResponseSender().send(ResponseUtil.getResponsUtil(cookieResult, ResultCodeUtil.OK));
                 return;
             }
@@ -63,17 +64,19 @@ public class LoginHandle extends SSoResourceHttpHandle {
 
     /**
      * 用户登出处理方法
+     *
      * @param exchange
      */
-    private void UserLogOut(HttpServerExchange exchange){
+    private void UserLogOut(HttpServerExchange exchange) {
 
     }
 
     /**
      * 用户页面展示处理方法
+     *
      * @param exchange
      */
-    private void userServerPage(HttpServerExchange exchange){
+    private void userServerPage(HttpServerExchange exchange) {
 
     }
 }

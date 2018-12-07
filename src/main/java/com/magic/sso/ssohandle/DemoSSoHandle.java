@@ -12,18 +12,18 @@ import java.io.IOException;
 
 public class DemoSSoHandle extends SSoHttpHandle {
     public DemoSSoHandle(String path, HttpString method) throws Exception {
-        super(path,method);
+        super(path, method);
     }
 
     public DemoSSoHandle(String path) throws Exception {
-        super("/"+path);
+        super("/" + path);
     }
 
     @Override
     public void handleRequest(HttpServerExchange exchange) throws Exception {
-        ClassPathResourceManager classPathResourceManager = new ClassPathResourceManager(this.getClass().getClassLoader(),"");
-        Resource resource=classPathResourceManager.getResource("test");
-        resource.serve(exchange.getResponseSender(),exchange, new IoCallback() {
+        ClassPathResourceManager classPathResourceManager = new ClassPathResourceManager(this.getClass().getClassLoader(), "");
+        Resource resource = classPathResourceManager.getResource("test");
+        resource.serve(exchange.getResponseSender(), exchange, new IoCallback() {
             @Override
             public void onComplete(HttpServerExchange exchange, Sender sender) {
 
