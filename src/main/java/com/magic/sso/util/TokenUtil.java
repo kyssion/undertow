@@ -27,7 +27,7 @@ public class TokenUtil {
     public static CookieResult insertLoginToken(HttpServerExchange exchange, User u, String... url) {
         HeaderUtil.responseJSON(exchange);
         //写登入cookie
-        Cookie cookie = CookieUtil.writeCookie(exchange, u.getUserId(), u.getPasswordHash());
+        Cookie cookie = CookieUtil.writeCookie(exchange, "SSO_"+u.getUserId(), u.getToken());
         //生成jsonp分发cookie列表
         return CookieUtil.readResultUrl(cookie, url);
     }

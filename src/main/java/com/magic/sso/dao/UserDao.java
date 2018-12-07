@@ -1,10 +1,7 @@
 package com.magic.sso.dao;
 
 import com.magic.sso.bean.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface UserDao {
@@ -18,4 +15,12 @@ public interface UserDao {
     @Select("select distinct (count(id)) from user where user_id = #{id}")
     int hasRegisteruser(@Param("id") String userId);
 
+    @Insert("insert into user_login (user_id, token, login_time, login_status) values (#{id},#{token},#{time},1)")
+    int insertLoginInfo(@Param("id") String userId, @Param("token") String token, @Param("time") long loginTime);
+
+    @Insert("update user_login set token =#{token} ,login_time = #{time}  where user_id = #{id}")
+    int updateUserLoginInfo(@Param("id") String userId, @Param("token") String token, @Param("time") long loginTime);
+
+    @Delete("delete from user_login where user_id = #{id}")
+    int deleteAllLoginInfo(@Param("id") String userId);
 }

@@ -34,8 +34,10 @@ public class RegisteredHandle extends SSoResourceHttpHandle {
             if (exchange.getRequestPath().endsWith(REGISTERUSER)) {
                 Map<String, Deque<String>> params = exchange.getQueryParameters();
                 User u = UserUtil.createUserForRegister(params);
-                this.Registeruser(u);
-                CookieResult cookieResult = TokenUtil.insertLoginToken(exchange, u, params.get("url").getFirst());
+                this.Registeruser(u);//注册用户
+                u.setToken(TokenUtil.createLoginToken(u));//设置loginToken
+                UserUtil.insertLoginInfo(u);//记录userToken
+                CookieResult cookieResult = TokenUtil.insertLoginToken(exchange, u, params.get("url").getFirst());//写cookie
                 exchange.getResponseSender().send(ResponseUtil.getResponsUtil(cookieResult, ResultCodeUtil.OK));
                 return;
             }

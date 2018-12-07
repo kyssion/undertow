@@ -144,11 +144,22 @@ public class UserUtil {
             String userId = exchange.get("user_id").getFirst();
             String password = exchange.get("password").getFirst();
             UserDao userDao = sqlSession.getMapper(UserDao.class);
-            User user = userDao.findUserByIdAndPassword(userId, password);
+            User user = userDao.findUserByIdAndPassword(userId, PasswordHashUtil.passwordToHash(password));
             return user;
         } catch (Exception e) {
             throw new BaseExcept(ResultCodeUtil.SYSTEM_ERROR);
         } finally {
+            sqlSession.close();
+        }
+    }
+
+    public static int insertLoginInfo(User user){
+        SqlSession sqlSession = MybatisUtil.getSqlSession();
+        try{
+            UserDao userDao = sqlSession.getMapper(UserDao.class);
+            userDao.deleteAllLoginInfo(user.getUserId(),user.getToken(),System.currentTimeMillis());
+            return userDao.insertLoginInfo(user.getUserId(),user.getToken(),System.currentTimeMillis());
+        }finally {
             sqlSession.close();
         }
     }

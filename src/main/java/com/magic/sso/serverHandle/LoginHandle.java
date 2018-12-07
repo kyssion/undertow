@@ -50,6 +50,8 @@ public class LoginHandle extends SSoResourceHttpHandle {
                 if (user == null) {
                     throw new BaseExcept(ResultCodeUtil.USERID_OR_PASSWORD_ERROR);
                 }
+                user.setToken(TokenUtil.createLoginToken(user));// 设置新登入token
+                UserUtil.insertLoginInfo(user); //添加数据库
                 CookieResult cookieResult = TokenUtil.insertLoginToken(exchange, user, params.get("url").getFirst());
                 exchange.getResponseSender().send(ResponseUtil.getResponsUtil(cookieResult, ResultCodeUtil.OK));
                 return;
