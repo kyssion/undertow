@@ -11,6 +11,7 @@ public class SSoMain {
 
         UserHandle userHandle = new UserHandle("user");
         RegisteredHandle registeredHandle = new RegisteredHandle("register");
+
         SSOPathRoutingHandle handle = new SSOPathRoutingHandle();
 
         handle.addSSoHttpHandle(userHandle);

@@ -1,8 +1,11 @@
 package com.magic.sso.ssohandle;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.magic.sso.serverHandle.DefaultHandle;
 import com.magic.sso.ssohandle.baseHandle.SSoHttpHandle;
 import com.magic.sso.util.PathTree;
+import com.magic.sso.util.ResponseUtil;
+import com.magic.sso.util.ResultCodeUtil;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.Methods;
@@ -95,12 +98,12 @@ public class SSOPathRoutingHandle implements HttpHandler {
     }
 
     @Override
-    public void handleRequest(HttpServerExchange exchange) {
+    public void handleRequest(HttpServerExchange exchange) throws JsonProcessingException {
         logger.info("请求传入参数:{}", exchange.getRequestURL());
         String[] node = (this.rootPath + exchange.getRequestPath()).split("/");
         SSoHttpHandle httpHandle = this.findhandle(node);
         if (httpHandle == null) {
-            exchange.getResponseSender().send("error");
+            exchange.getResponseSender().send(ResponseUtil.getResponsUtil(null, ResultCodeUtil.SYSTEM_ERROR));
             return;
         }
         if (exchange.getRequestMethod().equals(httpHandle.getMethod())) {
