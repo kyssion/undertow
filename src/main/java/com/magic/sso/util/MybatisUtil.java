@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class MybatisUtil {
 
-    private static final SqlSessionFactoryBuilder sqlSessionFactoryBuilder=
+    private static final SqlSessionFactoryBuilder sqlSessionFactoryBuilder =
             new SqlSessionFactoryBuilder();
 
     private static SqlSessionFactory factory;
@@ -23,22 +23,22 @@ public class MybatisUtil {
         }
     }
 
-    public static  <T> T getMapper(SqlSession sqlSession, Class<T> tClass){
-        if(null==factory){
+    public static <T> T getMapper(SqlSession sqlSession, Class<T> tClass) {
+        if (null == factory) {
             return null;
         }
         return sqlSession.getMapper(tClass);
     }
 
-    public static SqlSessionFactory getSessionFactory(){
+    public static SqlSessionFactory getSessionFactory() {
         return factory;
     }
 
-    public static SqlSession getSqlSession(){
+    public static SqlSession getSqlSession() {
         return factory.openSession();
     }
 
-    public static SqlSession getSqlSession(boolean auto){
+    public static SqlSession getSqlSession(boolean auto) {
         return factory.openSession(auto);
     }
 

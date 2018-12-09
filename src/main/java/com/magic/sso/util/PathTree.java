@@ -9,7 +9,7 @@ import java.util.HashMap;
  */
 public class PathTree {
     private String path;
-    private HashMap<String,PathTree> nextPathTree;
+    private HashMap<String, PathTree> nextPathTree;
     private SSoHttpHandle pathEndHandle;
 
     public String getPath() {

@@ -34,7 +34,7 @@ public final class SimpleEchoServer {
                                 final CharBuffer chars = charset.decode(buffer);
                                 System.out.print(chars);
                                 buffer.flip();
-                                Channels.writeBlocking(channel,buffer);
+                                Channels.writeBlocking(channel, buffer);
                             }
                             // 保证全部送出
                             Channels.flushBlocking(channel);

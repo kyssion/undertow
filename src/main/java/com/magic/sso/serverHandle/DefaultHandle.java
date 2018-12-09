@@ -23,9 +23,9 @@ public class DefaultHandle extends SSoHttpHandle {
 
     @Override
     public void handleRequest(HttpServerExchange exchange) throws Exception {
-        ClassPathResourceManager classPathResourceManager = new ClassPathResourceManager(this.getClass().getClassLoader(),"");
-        Resource resource=classPathResourceManager.getResource("test");
-        resource.serve(exchange.getResponseSender(),exchange, new IoCallback() {
+        ClassPathResourceManager classPathResourceManager = new ClassPathResourceManager(this.getClass().getClassLoader(), "");
+        Resource resource = classPathResourceManager.getResource("test");
+        resource.serve(exchange.getResponseSender(), exchange, new IoCallback() {
             @Override
             public void onComplete(HttpServerExchange exchange, Sender sender) {
 

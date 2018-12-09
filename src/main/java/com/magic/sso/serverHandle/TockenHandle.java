@@ -1,14 +1,20 @@
 package com.magic.sso.serverHandle;
 
+import com.magic.sso.bean.User;
 import com.magic.sso.ssohandle.baseHandle.SSoHttpHandle;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HttpString;
+import io.undertow.util.URLUtils;
 
+import java.util.Deque;
+import java.util.Map;
+
+/**
+ * 内服服务接口
+ */
 public class TockenHandle extends SSoHttpHandle {
 
-    private static String ADDTOCKEN = "addTocken";
     private static String ISTOCKENTRUE = "isTockenTrue";
-    private static String DELETETOCKEN = "deleteTocken";
 
     public TockenHandle(String path, HttpString method) throws Exception {
         super(path, method);
@@ -20,16 +26,11 @@ public class TockenHandle extends SSoHttpHandle {
 
     @Override
     public void handleRequest(HttpServerExchange exchange) throws Exception {
-        if(exchange.getRequestPath().equals(this.getPath()+ADDTOCKEN)){
-            this.addTocken(exchange);
+
+        if (exchange.getRequestPath().endsWith(ISTOCKENTRUE)) {
+            Map<String, Deque<String>> params = exchange.getQueryParameters();
+            this.isTockenTrue(params,exchange);
             return;
-        }
-        if(exchange.getRequestPath().equals(this.getPath()+ISTOCKENTRUE)){
-            this.isTockenTrue(exchange);
-            return;
-        }
-        if(exchange.getRequestPath().equals(this.getPath()+DELETETOCKEN)){
-            this.deleteTocken(exchange);
         }
     }
 
@@ -45,10 +46,17 @@ public class TockenHandle extends SSoHttpHandle {
     /**
      * 判断令牌信息是否正确
      *
+     * @param params
      * @param exchange
      */
-    private void isTockenTrue(HttpServerExchange exchange) {
+    private void isTockenTrue(Map<String, Deque<String>> params, HttpServerExchange exchange) {
+        try{
+            String userId = params.get("userId").getFirst();
+        }catch (Exception e){
 
+        }finally {
+
+        }
     }
 
     /**

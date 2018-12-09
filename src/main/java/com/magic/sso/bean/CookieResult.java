@@ -1,7 +1,5 @@
 package com.magic.sso.bean;
 
-import java.util.List;
-
 public class CookieResult {
 
     private String cookeName;

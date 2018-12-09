@@ -72,32 +72,32 @@ public class ServletServer {
     }
 
     public static void main2(String[] args) throws ServletException {
-        ServletInfo servlets = servlet("testServlet",MessageServlet.class);
-        servlets.addInitParam("message","hellow");
+        ServletInfo servlets = servlet("testServlet", MessageServlet.class);
+        servlets.addInitParam("message", "hellow");
         servlets.addMapping("one");
         DeploymentInfo deploymentInfo = deployment();
         deploymentInfo.setClassLoader(ServletServer.class.getClassLoader());
         deploymentInfo.setContextPath("/bbb");
         deploymentInfo.setDeploymentName("test").addServlets(servlets);
-        DeploymentManager manager =defaultContainer().addDeployment(deploymentInfo);
+        DeploymentManager manager = defaultContainer().addDeployment(deploymentInfo);
         manager.deploy();
 
 
-        ServletInfo servlets2 = servlet("testServlet",MessageServlet.class);
-        servlets2.addInitParam("message","hellow2");
+        ServletInfo servlets2 = servlet("testServlet", MessageServlet.class);
+        servlets2.addInitParam("message", "hellow2");
         servlets2.addMapping("one2");
         DeploymentInfo deploymentInfo2 = deployment();
         deploymentInfo2.setClassLoader(ServletServer.class.getClassLoader());
         deploymentInfo2.setContextPath("/aaa");
         deploymentInfo2.setDeploymentName("test2").addServlets(servlets2);
-        DeploymentManager manager2 =defaultContainer().addDeployment(deploymentInfo2);
+        DeploymentManager manager2 = defaultContainer().addDeployment(deploymentInfo2);
         manager2.deploy();
 
         HttpHandler servletHandler = manager.start();
         HttpHandler servletHandler2 = manager2.start();
         PathHandler path = Handlers.path()
                 .addPrefixPath("myapp", servletHandler)
-                .addPrefixPath("myapp2",servletHandler2);
+                .addPrefixPath("myapp2", servletHandler2);
 
 
         Undertow server = Undertow.builder()

@@ -9,16 +9,12 @@ import com.magic.sso.ssohandle.baseHandle.SSoResourceHttpHandle;
 import com.magic.sso.util.*;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.server.handlers.Cookie;
-import io.undertow.util.Headers;
 import io.undertow.util.HttpString;
-import org.apache.ibatis.io.DefaultVFS;
 import org.apache.ibatis.session.SqlSession;
 
 import java.io.IOException;
 import java.util.Deque;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Queue;
 
 public class RegisteredHandle extends SSoResourceHttpHandle {
 
@@ -38,12 +34,11 @@ public class RegisteredHandle extends SSoResourceHttpHandle {
             if (exchange.getRequestPath().endsWith(REGISTERUSER)) {
                 Map<String, Deque<String>> params = exchange.getQueryParameters();
                 User u = UserUtil.createUserForRegister(params);
-                this.Registeruser(u);
-                HeaderUtil.responseJSON(exchange);
-                //写登入cookie
-                Cookie cookie = writeCookie(exchange, u.getUserId(), u.getPasswordHash());
-                //生成jsonp分发cookie列表
-                CookieResult cookieResult = CookieUtil.readResultUrl(cookie, params.get("url").getFirst());
+                this.Registeruser(u);//注册用户
+                UserUtil.deleteLoginInfo(u.getUserId(),exchange); //重置初始化loginInfo 用户登入信息
+                u.setToken(TokenUtil.createLoginToken(u));//设置loginToken
+                UserUtil.insertLoginInfo(u);//记录userToken
+                CookieResult cookieResult = CookieUtil.insertLoginToken(exchange, u, params.get("url").getFirst());//写cookie
                 exchange.getResponseSender().send(ResponseUtil.getResponsUtil(cookieResult, ResultCodeUtil.OK));
                 return;
             }
@@ -84,10 +79,5 @@ public class RegisteredHandle extends SSoResourceHttpHandle {
     private void RegisterPage(HttpServerExchange exchange) throws IOException {
         HeaderUtil.responseTEXT(exchange);
         this.resourceHandler(exchange, "test");
-    }
-
-
-    private Cookie writeCookie(HttpServerExchange exchange, String userId, String passwordhash) {
-        return CookieUtil.writeCookie(exchange, "L_" + userId, TokenUtil.createLoginToken(userId, passwordhash));
     }
 }

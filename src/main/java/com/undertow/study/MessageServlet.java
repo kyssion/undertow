@@ -45,7 +45,7 @@ public class MessageServlet extends HttpServlet {
     @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter writer = resp.getWriter();
-        ServletContext context= req.getServletContext();
+        ServletContext context = req.getServletContext();
         System.out.println(context.getContextPath());
         writer.write(message);
         writer.close();
