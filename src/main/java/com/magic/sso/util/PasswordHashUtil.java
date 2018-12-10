@@ -1,6 +1,5 @@
 package com.magic.sso.util;
 
-import org.apache.commons.codec.binary.StringUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 
 public class PasswordHashUtil {

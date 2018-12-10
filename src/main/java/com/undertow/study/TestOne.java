@@ -5,11 +5,8 @@ import io.undertow.io.Sender;
 import io.undertow.server.DefaultResponseListener;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
-import io.undertow.server.protocol.http.HttpOpenListener;
 import io.undertow.util.Headers;
 
-import java.util.Collections;
-import java.util.Set;
 
 public class TestOne {
     public static void main(String[] args) {

@@ -1,9 +1,6 @@
 package com.magic.sso.util;
 
-import com.magic.sso.bean.CookieResult;
 import com.magic.sso.bean.User;
-import io.undertow.server.HttpServerExchange;
-import io.undertow.server.handlers.Cookie;
 
 
 public class TokenUtil {

@@ -3,7 +3,6 @@ package com.magic.sso.serverHandle;
 import com.magic.sso.ssohandle.baseHandle.SSoHttpHandle;
 import io.undertow.io.IoCallback;
 import io.undertow.io.Sender;
-import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.server.handlers.resource.ClassPathResourceManager;
 import io.undertow.server.handlers.resource.Resource;
