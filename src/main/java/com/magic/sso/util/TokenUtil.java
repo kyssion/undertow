@@ -18,6 +18,7 @@ public class TokenUtil {
         if (StringUtil.isAllBlank(token1, token2)) {
             return false;
         }
+
         return token1.equals(token2);
     }
 }
