@@ -26,19 +26,19 @@
         </dependency>
 
         <!-- 日志信息 jboss 日志不知道需不需要使用 -->
-        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.jboss.logging/jboss-logging &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.jboss.logging</groupId>-->
-            <!--<artifactId>jboss-logging</artifactId>-->
-            <!--<version>3.3.2.Final</version>-->
-        <!--</dependency>-->
-        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.jboss.logging/jboss-logging-processor &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.jboss.logging</groupId>-->
-            <!--<artifactId>jboss-logging-processor</artifactId>-->
-            <!--<version>2.1.0.Final</version>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.jboss.logging/jboss-logging -->
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
+            <version>3.3.2.Final</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jboss.logging/jboss-logging-processor -->
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging-processor</artifactId>
+            <version>2.1.0.Final</version>
+            <scope>provided</scope>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>

@@ -1,10 +1,8 @@
 package com.magic.sso.serverHandle;
 
-import com.magic.sso.bean.User;
 import com.magic.sso.ssohandle.baseHandle.SSoHttpHandle;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HttpString;
-import io.undertow.util.URLUtils;
 
 import java.util.Deque;
 import java.util.Map;

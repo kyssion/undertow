@@ -1,5 +1,5 @@
 package com.magic.sso.util.simpleSql;
-
+@Deprecated
 public class SimpleSqlParams implements SqlParams {
 
     private String[] params;

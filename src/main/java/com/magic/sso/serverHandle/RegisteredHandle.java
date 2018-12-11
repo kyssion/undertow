@@ -8,7 +8,6 @@ import com.magic.sso.except.BaseExcept;
 import com.magic.sso.ssohandle.baseHandle.SSoResourceHttpHandle;
 import com.magic.sso.util.*;
 import io.undertow.server.HttpServerExchange;
-import io.undertow.server.handlers.Cookie;
 import io.undertow.util.HttpString;
 import org.apache.ibatis.session.SqlSession;
 

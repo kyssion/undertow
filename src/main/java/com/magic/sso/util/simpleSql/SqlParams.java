@@ -1,5 +1,6 @@
 package com.magic.sso.util.simpleSql;
 
+@Deprecated
 public interface SqlParams {
     String[] getParams();
 
