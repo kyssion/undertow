@@ -8,6 +8,7 @@ import com.magic.sso.util.ResponseUtil;
 import com.magic.sso.util.ResultCodeUtil;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
+import io.undertow.util.AttachmentKey;
 import io.undertow.util.Methods;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
