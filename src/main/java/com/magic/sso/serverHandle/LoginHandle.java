@@ -6,11 +6,8 @@ import com.magic.sso.bean.User;
 import com.magic.sso.except.BaseExcept;
 import com.magic.sso.ssohandle.baseHandle.SSoResourceHttpHandle;
 import com.magic.sso.util.*;
-import io.undertow.server.BlockingHttpExchange;
 import io.undertow.server.HttpServerExchange;
-import io.undertow.server.HttpUpgradeListener;
 import io.undertow.util.HttpString;
-import org.xnio.StreamConnection;
 
 import java.util.Deque;
 import java.util.Map;
