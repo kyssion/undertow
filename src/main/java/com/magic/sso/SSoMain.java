@@ -9,6 +9,8 @@ import com.magic.sso.util.MybatisUtil;
 import io.undertow.Undertow;
 import org.apache.ibatis.session.SqlSession;
 
+import java.lang.reflect.WildcardType;
+
 public class SSoMain {
     public static void main(String[] args) {
         SqlSession sqlSession = MybatisUtil.getSqlSession();
