@@ -1,4 +1,4 @@
-package com.magic.sso.dao;
+package com.magic.sso;
 
 import com.magic.sso.bean.User;
 import org.apache.ibatis.annotations.*;

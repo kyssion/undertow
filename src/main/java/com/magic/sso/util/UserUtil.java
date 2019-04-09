@@ -2,7 +2,7 @@ package com.magic.sso.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.magic.sso.bean.User;
-import com.magic.sso.dao.UserDao;
+import com.magic.sso.UserDao;
 import com.magic.sso.except.BaseExcept;
 import io.undertow.server.HttpServerExchange;
 import org.apache.ibatis.session.SqlSession;

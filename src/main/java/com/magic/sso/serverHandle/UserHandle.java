@@ -1,7 +1,7 @@
 package com.magic.sso.serverHandle;
 
 import com.magic.sso.bean.User;
-import com.magic.sso.dao.UserDao;
+import com.magic.sso.UserDao;
 import com.magic.sso.except.BaseExcept;
 import com.magic.sso.ssohandle.baseHandle.SSoResourceHttpHandle;
 import com.magic.sso.util.MybatisUtil;
