@@ -1,6 +1,5 @@
 package com.magic.sso;
 
-import com.magic.sso.dao.Item;
 import com.magic.sso.dao.TestMapper;
 import com.magic.sso.serverHandle.RegisteredHandle;
 import com.magic.sso.serverHandle.UserHandle;

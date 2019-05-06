@@ -1,4 +1,4 @@
-package com.magic.sso.dao;
+package com.magic.sso;
 
 public class Item {
     private String name;
