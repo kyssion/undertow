@@ -13,7 +13,9 @@ public class SSoMain {
     public static void main(String[] args) {
         SqlSession sqlSession = MybatisUtil.getSqlSession();
         TestMapper item = sqlSession.getMapper(TestMapper.class);
-        Item[] items = item.select();
+        Item[] items = item.select(new int[]{
+                1,2,3
+        });
     }
     public static void main2(String[] args) throws Exception {
 
