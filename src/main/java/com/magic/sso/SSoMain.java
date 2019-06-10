@@ -1,5 +1,6 @@
 package com.magic.sso;
 
+import com.magic.sso.bean.User;
 import com.magic.sso.dao.TestMapper;
 import com.magic.sso.serverHandle.RegisteredHandle;
 import com.magic.sso.serverHandle.UserHandle;
@@ -11,10 +12,9 @@ import org.apache.ibatis.session.SqlSession;
 public class SSoMain {
     public static void main(String[] args) {
         SqlSession sqlSession = MybatisUtil.getSqlSession();
+
         TestMapper item = sqlSession.getMapper(TestMapper.class);
-        Item[] items = item.select(new int[]{
-                1,2,3
-        });
+        Item[] items = item.update(new User());
     }
     public static void main2(String[] args) throws Exception {
 

@@ -19,6 +19,6 @@
         </environment>
     </environments>
     <mappers>
-        <package name="com.magic.sso.dao"/>
+        <mapper resource="mapper.xml"></mapper>
     </mappers>
 </configuration>
