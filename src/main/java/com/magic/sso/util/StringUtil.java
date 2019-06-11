@@ -6,6 +6,8 @@ public class StringUtil {
     }
 
     public static boolean isAllBlank(String... strings) {
+        System.out.println("sdfsdfsdf");
+        int a=0;
         for (String s : strings) {
             if (isBlank(s)) {
                 return true;
