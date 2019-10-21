@@ -41,4 +41,3 @@ root@Mylinux:/tmp/dir2# pushd -1
 注意：最左边表示栈顶，最右边表示栈底。
 
 
-<!-- Linux命令行搜索引擎：https://jaywcjlove.github.io/linux-command/ -->

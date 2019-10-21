@@ -31,4 +31,3 @@ sftp(选项)(参数)
 目标主机：指定sftp服务器ip地址或者主机名。
 
 
-<!-- Linux命令行搜索引擎：https://jaywcjlove.github.io/linux-command/ -->

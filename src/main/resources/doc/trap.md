@@ -178,4 +178,3 @@ $ trap 1 2
 复位应采取的动作收到信号1或2返回默认。
 
 
-<!-- Linux命令行搜索引擎：https://jaywcjlove.github.io/linux-command/ -->

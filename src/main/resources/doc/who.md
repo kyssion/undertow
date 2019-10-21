@@ -52,4 +52,3 @@ root     + pts/1        2013-12-20 10:37 (180.111.155.40)
 ```
 
 
-<!-- Linux命令行搜索引擎：https://jaywcjlove.github.io/linux-command/ -->

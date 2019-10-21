@@ -96,4 +96,3 @@ test –x File   #文件属否存在并可执行
 ```
 
 
-<!-- Linux命令行搜索引擎：https://jaywcjlove.github.io/linux-command/ -->

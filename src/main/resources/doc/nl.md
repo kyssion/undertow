@@ -91,4 +91,3 @@ root@localhost [test]# nl log2015.log
 说明：`nl -b a -n rz`命令行号默认为六位，要调整位数可以加上参数`-w 3`调整为3位。
 
 
-<!-- Linux命令行搜索引擎：https://jaywcjlove.github.io/linux-command/ -->
