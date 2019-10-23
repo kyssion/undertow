@@ -1,5 +1,6 @@
 package org.linuxq.dictionary.searchTool;
 
+import io.netty.util.internal.StringUtil;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import org.apache.lucene.analysis.Analyzer;
@@ -69,28 +70,31 @@ public class KeyFindTool {
     }
 
     public List<SearchReq> findSampleItemList(String key) throws IOException, ParseException, InvalidTokenOffsetsException {
+        if(StringUtil.isNullOrEmpty(key)){
+            return new ArrayList<>();
+        }
         IndexSearcher searcher = new IndexSearcher(reader);
         Analyzer analyzer = new SmartChineseAnalyzer();
         // 表达式查询方法
-        QueryParser parser = new QueryParser(INTRODUCTION_FILED_KEY, analyzer);
+        QueryParser parser = new QueryParser(CONTEXT_FILED_KEY, analyzer);
         Query query = parser.parse(key);
         // 查询高亮
-        QueryScorer score = new QueryScorer(query, INTRODUCTION_FILED_KEY);
+        QueryScorer score = new QueryScorer(query, CONTEXT_FILED_KEY);
         SimpleHTMLFormatter fors = new SimpleHTMLFormatter("<span>", "</span>");// 定制高亮标签
         Highlighter highlighter = new Highlighter(fors, score);// 高亮分析器
 
         List<SearchReq> searchReqs = new ArrayList<>();
 
         // 返回前10条
-        TopDocs tds = searcher.search(query, 30);
+        TopDocs tds = searcher.search(query, 100);
         for (ScoreDoc sd : tds.scoreDocs) {
             SearchReq searchReq = new SearchReq();
             Document doc = searcher.doc(sd.doc);
             searchReq.setTitle(doc.get("title"));
             Fragmenter fragment = new SimpleSpanFragmenter(score);
             highlighter.setTextFragmenter(fragment);
-            String str = highlighter.getBestFragment(analyzer, INTRODUCTION_FILED_KEY, doc.get(INTRODUCTION_FILED_KEY));// 获取高亮的片段
-            searchReq.setData(str);
+            String str = highlighter.getBestFragment(analyzer, CONTEXT_FILED_KEY, doc.get(CONTEXT_FILED_KEY));// 获取高亮的片段
+            searchReq.setData(doc.get(TITLE_FILED_KEY)+" - "+ str);
             searchReqs.add(searchReq);
         }
         return searchReqs;

@@ -21,7 +21,6 @@ public class VertxMain {
         Vertx vertx = Vertx.vertx();
         HttpServerOptions options = new HttpServerOptions().setLogActivity(true);
         HttpServer server = vertx.createHttpServer(options);
-
         Router router = Router.router(vertx);
         router.route(HttpMethod.GET, "/sample/select")
                 .handler(new SearchBeforeHandle())
@@ -33,9 +32,9 @@ public class VertxMain {
                 .blockingHandler(new AccurateSearchHandle())
                 .handler(new SearchAfterHandle());
 
-        server.requestHandler(router).exceptionHandler((Throwable::fillInStackTrace)).listen(3000, res -> {
+        server.requestHandler(router).exceptionHandler((Throwable::fillInStackTrace)).listen(8888, res -> {
             if (res.succeeded()) {
-                logger.info("Server is now listening! port : {0}",3000);
+                logger.info("Server is now listening! port : {0}",8888);
             } else {
                 logger.info("Failed to bind!");
             }
