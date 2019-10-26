@@ -1,5 +1,6 @@
 package org.linuxq.dictionary.searchTool;
 
+import io.netty.util.internal.StringUtil;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import org.apache.lucene.analysis.Analyzer;
@@ -69,6 +70,9 @@ public class KeyFindTool {
     }
 
     public List<SearchReq> findSampleItemList(String key) throws IOException, ParseException, InvalidTokenOffsetsException {
+        if(StringUtil.isNullOrEmpty(key)){
+            return new ArrayList<>();
+        }
         IndexSearcher searcher = new IndexSearcher(reader);
         Analyzer analyzer = new SmartChineseAnalyzer();
         // 表达式查询方法
@@ -82,7 +86,7 @@ public class KeyFindTool {
         List<SearchReq> searchReqs = new ArrayList<>();
 
         // 返回前10条
-        TopDocs tds = searcher.search(query, 30);
+        TopDocs tds = searcher.search(query, 100);
         for (ScoreDoc sd : tds.scoreDocs) {
             SearchReq searchReq = new SearchReq();
             Document doc = searcher.doc(sd.doc);

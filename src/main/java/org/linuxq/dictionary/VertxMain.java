@@ -21,7 +21,6 @@ public class VertxMain {
         Vertx vertx = Vertx.vertx();
         HttpServerOptions options = new HttpServerOptions().setLogActivity(true);
         HttpServer server = vertx.createHttpServer(options);
-
         Router router = Router.router(vertx);
         router.route(HttpMethod.GET, "/sample/select")
                 .handler(new SearchBeforeHandle())
